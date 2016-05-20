@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/sex_select">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="남자"
+            android:id="@+id/add_info_sex_men"
+            android:checked="false"
+            android:layout_gravity="left" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="여자"
+            android:id="@+id/add_info_sex_women"
+            android:checked="false" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="나이를입력하세요"
+            android:id="@+id/add_info_age"
+            android:layout_gravity="center" />
+
+        <EditText
+            android:layout_width="117dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:ems="10"
+            android:id="@+id/edit_add_info_age"
+            android:hint="살"
+            android:textAlignment="textEnd"
+            android:layout_gravity="right" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="체중을입력하세요"
+            android:id="@+id/add_info_weight"
+
+
+            android:layout_gravity="center" />
+
+        <EditText
+            android:layout_width="117dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:ems="10"
+            android:textAlignment="textEnd"
+            android:hint="kg"
+            android:id="@+id/edit_add_info_weight"
+            android:layout_gravity="right" />
+    </LinearLayout>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_check_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전체선택"
+            android:checked="false" />
+
+    </TableRow>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <CheckBox
+            android:id="@+id/cb_01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="당뇨"
+            android:checked="false" />
+
+        <CheckBox
+            android:id="@+id/cb_02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비만"
+            android:checked="false" />
+
+        <CheckBox
+            android:id="@+id/cb_03"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="고혈압"
+            android:checked="false" />
+
+        <CheckBox
+            android:id="@+id/cb_04"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="고지혈증"
+            android:checked="false" />
+    </LinearLayout>
+
+</LinearLayout>

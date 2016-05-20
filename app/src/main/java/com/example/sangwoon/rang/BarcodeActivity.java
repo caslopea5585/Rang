@@ -10,7 +10,12 @@ import android.widget.TextView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+
+
 public class BarcodeActivity extends AppCompatActivity {
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +48,11 @@ public class BarcodeActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        Intent history= new Intent(this,Search_History.class);
+
 
         //result.getContents() 바코드 번호
         //result.getFormatname 바코드 형식
@@ -58,8 +65,14 @@ public class BarcodeActivity extends AppCompatActivity {
         } else {
             TextView Product_name = (TextView) findViewById(R.id.Product_name);               //바코드 넘버 표출
             Product_name.setText(result.getContents());
+           //Search_History.ListViewAdapter.class.getClasses();
+            //write_history();
+
+
         }
+
     }
+
 
 }
 

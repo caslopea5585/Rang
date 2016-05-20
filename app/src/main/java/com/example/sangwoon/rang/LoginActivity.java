@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        startActivity(new Intent(this,Splash.class));
 
 
         setting = getSharedPreferences("setting", 0);
