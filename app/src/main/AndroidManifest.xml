@@ -38,7 +38,11 @@
         <activity android:name=".Search_History" />
         <activity android:name=".History_ListData" />
         <activity android:name=".User_info" />
-        <activity android:name=".Splash"></activity>
+        <activity android:name=".Splash" />
+        <activity android:name=".Detail_Search" />
+        <activity android:name=".nutrient_compare" />
+        <activity android:name=".nutrient_adapter" />
+        <activity android:name=".text_compare_Activity"></activity>
     </application>
 
 </manifest>

@@ -22,7 +22,7 @@ public class Search_History extends AppCompatActivity {
     private ListView mListView2 = null;
     public ListViewAdapter mAdapter = null;
     public static Context test;
-
+    public static Context mBarcode_Activity_Context;
 
 
     @Override
@@ -68,7 +68,7 @@ public class Search_History extends AppCompatActivity {
         public TextView mDate;
 
     }
-    private class ListViewAdapter extends BaseAdapter {
+    public class ListViewAdapter extends BaseAdapter {
         private Context mContext = null;
         private ArrayList<History_ListData> mListData = new ArrayList<History_ListData>();
 
@@ -106,11 +106,6 @@ public class Search_History extends AppCompatActivity {
             mListData.add(addInfo);
         }
 
-
-
-                //((Search_History)Search_History.test).mAdapter.addItem(getResources().getDrawable(R.drawable.supersu),
-                 //       "Test",
-                  //      "2014-02-04");
 
 
         //아이템 삭제
@@ -168,4 +163,12 @@ public class Search_History extends AppCompatActivity {
             return convertView;
         }
     }
+
+    public int Insert_history(){
+        mAdapter.addItem(getResources().getDrawable(R.drawable.history_button),
+                "검색기록보기",
+                "2014-02-18");
+        return 1;
+    }
+
 }

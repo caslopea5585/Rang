@@ -200,9 +200,9 @@
                     <ImageButton
                         android:layout_width="80dp"
                         android:layout_height="50dp"
-                        android:text="개인정보"
+                        android:text="상세검색"
                         android:src="@drawable/user_info"
-                        android:id="@+id/info"
+                        android:id="@+id/detail_search"
                         android:layout_alignParentBottom="false"
                         android:layout_alignParentRight="false"
                         android:layout_alignParentTop="false"

@@ -17,7 +17,8 @@ public class BarcodeActivity extends AppCompatActivity {
 
 
     String food_name;
-    int food_calbo,food_fat,food_protein,food_na,food_col,food_energy;
+    int food_calbo,food_fat,food_protein,food_na,food_col,food_energy,test;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class BarcodeActivity extends AppCompatActivity {
         re_barcode_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //test = ((Search_History)Search_History.mBarcode_Activity_Context).Insert_history();
                 new IntentIntegrator(BarcodeActivity.this).initiateScan();
 
             }
@@ -105,14 +107,17 @@ public class BarcodeActivity extends AppCompatActivity {
 
         } else {
             TextView Product_name = (TextView) findViewById(R.id.food_name);               //바코드 넘버 표출
-            Product_name.setText(result.getContents());
-           //Search_History.ListViewAdapter.class.getClasses();
-            //write_history();
 
+
+
+            Product_name.setText(result.getContents());
 
         }
 
+       // ((MainActivity)MainActivity.mBarcode_Activity_Context).Insert_history();
     }
+
+
 
 
 }

@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity  {
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
     public int count=0;
+
     public Button barcode_button;
 
     @Override
@@ -79,6 +80,15 @@ public class MainActivity extends AppCompatActivity  {
                 initSildeMenu();
 
 
+            }
+        });
+
+        ImageButton detail_search = (ImageButton)findViewById(R.id.detail_search);
+        detail_search.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent Detail_search2 = new Intent(MainActivity.this,Detail_Search.class);
+                startActivity(Detail_search2);
             }
         });
     }
@@ -240,7 +250,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     private class ListViewAdapter extends BaseAdapter {
-        private Context mContext = null;
+        public Context mContext = null;
         private ArrayList<ListData> mListData = new ArrayList<ListData>();
 
         public ListViewAdapter(Context mContext) {
@@ -307,10 +317,12 @@ public class MainActivity extends AppCompatActivity  {
 
             return convertView;
         }
+
+
+
+
+
     }
-
-
-
 
 
 }
