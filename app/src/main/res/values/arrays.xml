@@ -37,4 +37,20 @@
         <item>@drawable/un_1</item>
     </integer-array>
 
+    <string-array name="dataArray1">
+        <item>경기도</item>
+        <item>충청남도</item>
+        <item>충청북도</item>
+        <item>전라남도</item>
+        <item>전라북도</item>
+        <item>경상북도</item>
+        <item>경상남도</item>
+        <item>제주도</item>
+        <item>강원도</item>
+        <item>경운기</item>
+        <item>경상기</item>
+        <item>경문고</item>
+        <item>경보기</item>
+        <item>경보겸</item>
+    </string-array>
 </resources>

@@ -273,6 +273,7 @@ public class SignupActivity extends AppCompatActivity {
                     HttpClient httpClient = new DefaultHttpClient();
                     HttpPost httpPost = new HttpPost(
                             "http://14.63.213.212/signup");
+                    Log.d(TAG, "insert");
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                     HttpResponse response = httpClient.execute(httpPost);
                     HttpEntity entity = response.getEntity();
@@ -292,7 +293,8 @@ public class SignupActivity extends AppCompatActivity {
             }
         }
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
-        sendPostReqAsyncTask.execute(mem_phone, mem_name, mem_password, mem_email);
+        sendPostReqAsyncTask.execute(mem_name, mem_name, mem_password, mem_email);
+        Log.d(TAG, "insert complete");
     }
 
 

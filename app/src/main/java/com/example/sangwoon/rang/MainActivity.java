@@ -2,6 +2,7 @@ package com.example.sangwoon.rang;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +14,11 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -52,6 +56,13 @@ public class MainActivity extends AppCompatActivity  {
         mAdapter = new ListViewAdapter(this);
         mListView.setAdapter(mAdapter);
 
+        String[] optionLavala = getResources().getStringArray(
+                R.array.dataArray1);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, optionLavala);
+        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById
+                (R.id.edit_message);
+        textView.setAdapter(adapter);
 
         ImageButton barcode_button = (ImageButton)findViewById(R.id.barcode_button);
         barcode_button.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +104,34 @@ public class MainActivity extends AppCompatActivity  {
         });
     }
 
+    //재욱이 소스
+
+
+    public View newView(Context context, Cursor cursor, ViewGroup parent){
+        final LayoutInflater inflater = LayoutInflater.from(context);
+        final TextView view = (TextView) inflater.inflate(
+                android.R.layout.simple_dropdown_item_1line, parent, false);
+        view.setText(cursor.getString(1));
+        return view;
+    }
+    public void bindView(View view, Context context, Cursor cursor){
+        ((TextView) view).setText(cursor.getString(1));
+    }
+    public String convertToString(Cursor cursor){
+        return cursor.getString(1);
+    }
+
+    public final static String EXTRA_MESSAGE = "unikys.todo.MESSAGE";
+
+    public void sendMessage(View view) {
+        Intent intent = new Intent(this, DisplayMessageActivity.class);
+        EditText editText = (EditText) findViewById(R.id.edit_message);
+        String message = editText.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+
+
+    }
 
 
     private void initSildeMenu() {

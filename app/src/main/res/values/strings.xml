@@ -14,11 +14,14 @@
     <string name="spinnerPrompt1">걸그룹을 선택하세요</string>
     <string name="spinnerPrompt2">멤버를 선택하세요</string>
     <string name="spinnerPrompt3">사진을 선택하세요</string>
+    <string name="send_button">Send</string>
+    <string name="edit_message">Enter a Messge</string>
+    <string name="title_activity_">Activity</string>
+    <string name="title_activity_display_messge">My Message</string>
     <string name="title_activity_compare_">Compare_Activity</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-
 
 
 </resources>

@@ -95,7 +95,7 @@ public class BarcodeActivity extends AppCompatActivity {
 
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         Intent history= new Intent(this,Search_History.class);
-
+//
 
         //result.getContents() 바코드 번호
         //result.getFormatname 바코드 형식
