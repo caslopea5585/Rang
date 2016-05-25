@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="영양소를 고르시오"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginTop="55dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="나트륨"
+            android:id="@+id/checkBox1"
+            android:textSize="10dp"
+            android:layout_below="@+id/textView1"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="28dp" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="당분"
+            android:id="@+id/checkBox3"
+            android:layout_alignBottom="@+id/checkBox2"
+            android:layout_toEndOf="@+id/checkBox2"
+            android:textSize="10dp"
+            android:layout_gravity="center_horizontal" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="마그네슘"
+            android:id="@+id/checkBox2"
+            android:layout_alignBottom="@+id/checkBox1"
+            android:layout_toEndOf="@+id/checkBox1"
+            android:textSize="10dp"
+            android:layout_gravity="right" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="염분"
+            android:id="@+id/checkBox5"
+            android:textSize="10dp"
+            android:layout_alignTop="@+id/checkBox6"
+            android:layout_toEndOf="@+id/checkBox6"
+            android:layout_gravity="center_horizontal" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="밀가루"
+            android:id="@+id/checkBox6"
+            android:textSize="10dp"
+            android:layout_alignTop="@+id/checkBox3"
+            android:layout_toEndOf="@+id/checkBox3" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="철분"
+            android:id="@+id/checkBox4"
+            android:textSize="10dp"
+            android:layout_alignTop="@+id/checkBox5"
+            android:layout_toEndOf="@+id/checkBox5"
+            android:layout_gravity="center_horizontal" />
+
+
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="선택결과"
+            android:id="@+id/textView3"
+            android:layout_below="@+id/toggleButton1"
+            android:layout_alignParentStart="true" />
+
+
+        <ListView android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView"
+            android:layout_below="@+id/textView3"
+            android:layout_alignParentStart="true" />
+
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="당뇨"
+            android:textOn="당뇨"
+            android:textOff="당뇨"
+            android:id="@+id/toggleButton1"
+            android:layout_below="@+id/checkBox1"
+            android:layout_alignParentStart="true" />
+
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="암"
+            android:textOn="암"
+            android:textOff="암"
+            android:id="@+id/toggleButton2"
+            android:layout_below="@+id/checkBox3"
+            android:layout_toStartOf="@+id/checkBox6" />
+
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비만"
+            android:textOn="비만"
+            android:textOff="비만"
+            android:id="@+id/toggleButton3"
+            android:layout_above="@+id/textView3"
+            android:layout_toEndOf="@+id/toggleButton2" />
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>
