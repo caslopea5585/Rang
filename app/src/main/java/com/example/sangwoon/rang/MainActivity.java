@@ -122,6 +122,10 @@ public class MainActivity extends AppCompatActivity  {
                         Intent compare_activity = new Intent(MainActivity.this, CompareActivity.class);
                         startActivity(compare_activity);
                         break;
+                    case 3:
+                        Intent User_info = new Intent(MainActivity.this, User_info.class);
+                        startActivity(User_info);
+                        break;
 
 
 

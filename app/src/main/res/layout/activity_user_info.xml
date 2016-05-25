@@ -11,7 +11,8 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/iamge22">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -48,97 +49,161 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
 
-        <GridLayout
+        android:layout_below="@+id/iamge22">
+
+        <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:orientation="horizontal"
+            android:id="@+id/sex_select"
+            android:layout_gravity="center_vertical"
+            android:layout_above="@+id/linearLayout3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="남자"
+                android:id="@+id/add_info_sex_men"
+                android:checked="false"
+                android:layout_gravity="left" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="여자"
+                android:id="@+id/add_info_sex_women"
+                android:checked="false" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/linearLayout2"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="163dp"
-            android:columnCount="10"
-            android:rowCount="6"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
+            android:id="@+id/linearLayout3">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="내 영양소체크하기"
-                android:id="@+id/textView12"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:layout_columnSpan="4"
-                android:layout_rowSpan="2" />
+                android:text="나이를입력하세요"
+                android:id="@+id/add_info_age"
+                android:layout_gravity="center" />
 
-            <CheckBox
+            <EditText
+                android:layout_width="117dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned"
+                android:ems="10"
+                android:id="@+id/edit_add_info_age"
+                android:hint="살"
+                android:textAlignment="textEnd"
+                android:layout_gravity="right" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout2"
+            android:layout_above="@+id/linearLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="50dp">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="영양소1"
-                android:id="@+id/checkBox"
-                android:layout_row="3"
-                android:layout_column="2"
-                android:checked="true"
-                android:clickable="false"
-                android:layout_columnSpan="2" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="체중을입력하세요"
+                android:id="@+id/add_info_weight"
+
+
+                android:layout_gravity="center" />
+
+            <EditText
+                android:layout_width="117dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned"
+                android:ems="10"
+                android:textAlignment="textEnd"
+                android:hint="kg"
+                android:id="@+id/edit_add_info_weight"
+                android:layout_gravity="right" />
+        </LinearLayout>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/tableRow"
+            android:layout_above="@+id/linearLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
             <CheckBox
+                android:id="@+id/cb_check_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="영양소2"
-                android:id="@+id/checkBox2"
-                android:layout_row="3"
-                android:layout_column="6"
-                android:checked="true"
-                android:clickable="false" />
+                android:text="전체선택"
+                android:checked="false" />
+
+        </TableRow>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/change_password"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="118dp"
+            android:id="@+id/linearLayout">
 
             <CheckBox
+                android:id="@+id/cb_04"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="영양소3"
-                android:id="@+id/checkBox3"
-                android:layout_row="3"
-                android:layout_column="9"
-                android:checked="true"
-                android:clickable="false" />
+                android:text="고지혈증"
+                android:checked="false" />
 
             <CheckBox
+                android:id="@+id/cb_01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="영양소4"
-                android:id="@+id/checkBox4"
-                android:layout_row="5"
-                android:layout_column="2"
-                android:checked="true"
-                android:clickable="false" />
+                android:text="당뇨"
+                android:checked="false" />
 
             <CheckBox
+                android:id="@+id/cb_02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="영양소5"
-                android:id="@+id/checkBox5"
-                android:layout_row="5"
-                android:layout_column="6"
-                android:checked="true"
-                android:clickable="false" />
+                android:text="비만"
+                android:checked="false" />
 
             <CheckBox
-                android:layout_width="wrap_content"
+                android:id="@+id/cb_03"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="영양소6"
-                android:id="@+id/checkBox6"
-                android:layout_row="5"
-                android:layout_column="9"
-                android:checked="true"
-                android:clickable="false" />
-        </GridLayout>
-    </RelativeLayout>
+                android:text="고혈압"
+                android:checked="false" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="변경하기"
+            android:id="@+id/value_change"
+            android:layout_above="@+id/logout"
+            android:layout_alignLeft="@+id/logout"
+            android:layout_alignStart="@+id/logout" />
 
         <Button
             android:layout_width="wrap_content"
@@ -154,6 +219,7 @@
             android:id="@+id/logout"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true" />
+
     </RelativeLayout>
 
 </RelativeLayout>

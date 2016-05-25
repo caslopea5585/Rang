@@ -160,8 +160,6 @@ public class SignupActivity extends AppCompatActivity {
                 (CheckBox)innerView.findViewById(R.id.cb_03),
                 (CheckBox)innerView.findViewById(R.id.cb_04)
 
-
-
         };
 
 
