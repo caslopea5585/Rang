@@ -173,7 +173,7 @@ public class BarcodeActivity extends AppCompatActivity {
                     }
 
 
-                    parsedData = jsonParserList(result);
+
                     Log.d("wehhdfg", result + 456);
 
                     return result;
@@ -190,6 +190,7 @@ public class BarcodeActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(String result) {
+                parsedData = jsonParserList(result);
                 super.onPostExecute(result);
 
             }
@@ -217,6 +218,7 @@ public class BarcodeActivity extends AppCompatActivity {
             String food_calbo = a.getString("food_calbo");
             String food_stargrade = a.getString("food_stargrade");
 
+            food_calbo_getvalue.setText(   food_stargrade);
             Log.e("aaaaaaaaa", food_calbo + food_stargrade);
 
             String qwer = "";
