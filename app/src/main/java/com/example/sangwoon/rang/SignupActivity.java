@@ -16,7 +16,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +34,7 @@ import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
+import cz.msebera.android.httpclient.util.EntityUtils;
 
 
 public class SignupActivity extends AppCompatActivity {
@@ -45,9 +49,11 @@ public class SignupActivity extends AppCompatActivity {
     public RadioButton sex_men, sex_women;
     public RadioGroup sex_group ;
     public EditText a_add_info_age,a_add_info_weight;
-    public int value_add_info_age,value_add_info_weight;
+    public int value_add_info_weight;
+    public String value_add_info_age;
     public CheckBox check_all,check_one,check_two,check_three,check_four;
-    public int check_value_one,check_value_two,check_value_three,check_value_four;
+    public String check_value_one,check_value_two,check_value_three,check_value_four,check_sex;
+    public String value,mem_phone,mem_age,mem_sex,mem_weight,mem_diabetes,mem_obesity,mem_highblood,mem_hyper;
     @InjectView(R.id.input_name)
     EditText _nameText;
     @InjectView(R.id.input_email)
@@ -108,6 +114,7 @@ public class SignupActivity extends AppCompatActivity {
         AlertDialog.Builder ab = new AlertDialog.Builder(this);
         ab.setTitle("부가정보선택");
         ab.setView(innerView);
+        //0이 남자 1이 여자
         sex_men = (RadioButton) findViewById(R.id.add_info_sex_men);
         sex_women = (RadioButton) findViewById(R.id.add_info_sex_women);
         sex_group = (RadioGroup)findViewById(R.id.sex_select);
@@ -115,33 +122,14 @@ public class SignupActivity extends AppCompatActivity {
 
 
         a_add_info_age = (EditText)innerView.findViewById(R.id.edit_add_info_age);
-       a_add_info_weight =(EditText)innerView.findViewById(R.id.edit_add_info_weight);
+        a_add_info_weight =(EditText)innerView.findViewById(R.id.edit_add_info_weight);
         check_all=(CheckBox)innerView.findViewById(R.id.cb_check_all);
         check_one=(CheckBox)innerView.findViewById(R.id.cb_01);
         check_two=(CheckBox)innerView.findViewById(R.id.cb_02);
         check_three=(CheckBox)innerView.findViewById(R.id.cb_03);
         check_four=(CheckBox)innerView.findViewById(R.id.cb_04);
 
-        if(check_all.isChecked()){
-            check_value_one=1;
-            check_value_two=1;
-            check_value_three=1;
-            check_value_four=1;
 
-        }else if(check_one.isChecked()){
-            //당뇨
-            check_value_one=1;
-
-        }else if(check_two.isChecked()){
-            //비만
-            check_value_two=1;
-        }else if(check_three.isChecked()){
-            //고혈압
-            check_value_three=1;
-        }else if(check_four.isChecked()){
-            //고지혈증
-            check_value_four=1;
-        }
 
 
         mRadioBoxs = new RadioButton[]{
@@ -161,14 +149,41 @@ public class SignupActivity extends AppCompatActivity {
                 (CheckBox)innerView.findViewById(R.id.cb_04)
 
         };
+//
+//        if(sex_men.isChecked()){
+//            check_sex = "1";
+//        }
+        check_value_one="0";
+        check_value_two="0";
+        check_value_three="0";
+        check_value_four="0";
 
+        if(check_all.isChecked()){
+            check_value_one="1";
+            check_value_two="1";
+            check_value_three="1";
+            check_value_four="1";
 
+        }else if(check_one.isChecked()){
+            //당뇨
+            check_value_one="1";
 
+        }else if(check_two.isChecked()){
+            //비만
+            check_value_two="1";
+        }else if(check_three.isChecked()){
+            //고혈압
+            check_value_three="1";
+        }else if(check_four.isChecked()){
+            //고지혈증
+            check_value_four="1";
+        }
+        check_sex = "1";
         ab.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
 
-                value_add_info_age=Integer.parseInt(a_add_info_age.getText().toString());
+                value_add_info_age=a_add_info_age.getText().toString();
                 value_add_info_weight=Integer.parseInt(a_add_info_weight.getText().toString());
 
 
@@ -216,16 +231,23 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-        String mem_phone = "123";
+       mem_phone = "123";
         String mem_name = _nameText.getText().toString();
         String mem_email = _emailText.getText().toString();
         String mem_pwd = _passwordText.getText().toString();
         String re_password = _Re_passwordText.getText().toString();
+        String mem_age = value_add_info_age.toString();
+        String mem_sex = check_sex.toString();
+        String mem_weight = a_add_info_weight.getText().toString();
+        String mem_diabetes = check_value_one.toString();
+        String mem_obesity = check_value_two.toString();
+        String mem_highblood = check_value_three.toString();
+        String mem_hyper = check_value_four.toString();
 
         //성공했으면 return "success"
         //회원가입 칸 유효성 검사후에 DB에 사용자 정보 입력
 
-        insertToDatabase(mem_phone, mem_name, mem_pwd, mem_email);
+        insertToDatabase(mem_name,mem_email,mem_pwd,mem_age,mem_sex,mem_weight,mem_diabetes,mem_obesity,mem_highblood,mem_hyper);
 
         _signupButton.setEnabled(false);
 
@@ -233,7 +255,9 @@ public class SignupActivity extends AppCompatActivity {
                 R.style.AppTheme_Dark_Dialog);
 
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
+
+        progressDialog.setMessage(mem_name);
+       // progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
         // TODO: Implement your own signup logic here.
@@ -252,31 +276,55 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     //android - > php -> db (insert)
-    public void insertToDatabase(String mem_phone, String mem_name, String mem_email, String mem_password) {
+    public void insertToDatabase(String mem_name, String mem_email, String mem_pwd, String mem_age,String mem_sex, String mem_weight, String mem_diabetes, String mem_obesity, String mem_highblood, String mem_hyper) {
         class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
             @Override
             protected String doInBackground(String... params) {
-                String parammemphone = params[0];
-                String paramUsername = params[1];
-                String paramEmail = params[2];
-                String paramPassword = params[3];
+                String paramUsername = params[0];
+                String paramEmail = params[1];
+                String paramPassword = params[2];
+                String parammemage = params[3];
+                String parammemesex = params[4];
+                String parammemweight = params[5];
+                String parammemdiabetes = params[6];
+                String parammemobesity = params[7];
+                String parammemhighblood = params[8];
+                String parammemhyper = params[9];
+
+
+
 
 
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-                nameValuePairs.add(new BasicNameValuePair("mem_phone", parammemphone));
                 nameValuePairs.add(new BasicNameValuePair("mem_name", paramUsername));
-                nameValuePairs.add(new BasicNameValuePair("mem_pwd", paramEmail));
-                nameValuePairs.add(new BasicNameValuePair("mem_email", paramPassword));
+                nameValuePairs.add(new BasicNameValuePair("mem_email", paramEmail));
+                nameValuePairs.add(new BasicNameValuePair("mem_pwd", paramPassword));
+
+                nameValuePairs.add(new BasicNameValuePair("mem_age", parammemage));
+                nameValuePairs.add(new BasicNameValuePair("mem_sex", parammemesex));
+                nameValuePairs.add(new BasicNameValuePair("mem_weight", parammemweight));
+                nameValuePairs.add(new BasicNameValuePair("mem_diabetes", parammemdiabetes));
+                nameValuePairs.add(new BasicNameValuePair("mem_obesity", parammemobesity));
+                nameValuePairs.add(new BasicNameValuePair("mem_highblood", parammemhighblood));
+                nameValuePairs.add(new BasicNameValuePair("mem_hyper", parammemhyper));
 
                 try {
 
                     HttpClient httpClient = new DefaultHttpClient();
                     HttpPost httpPost = new HttpPost(
                             "http://14.63.213.212/signup");
-                    Log.d(TAG, "insert");
+                    Log.d("qwerqwerq", "insert"+paramUsername);
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                    Log.d("123333", "insert" + paramPassword);
                     HttpResponse response = httpClient.execute(httpPost);
+
                     HttpEntity entity = response.getEntity();
+
+                    //서버 응답값
+                    String value = EntityUtils.toString(response.getEntity());
+                    Log.d(TAG,value);
+
+
 
                 } catch (ClientProtocolException e) {
 
@@ -293,8 +341,11 @@ public class SignupActivity extends AppCompatActivity {
             }
         }
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
-        sendPostReqAsyncTask.execute(mem_name, mem_name, mem_password, mem_email);
+        Log.d("qwerqwerq", "insert"+mem_name);
+        sendPostReqAsyncTask.execute(mem_name, mem_email, mem_pwd,mem_age,mem_sex,mem_weight,mem_diabetes,mem_obesity,mem_highblood,mem_hyper);
         Log.d(TAG, "insert complete");
+
+
     }
 
 
