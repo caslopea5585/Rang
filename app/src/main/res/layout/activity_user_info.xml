@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="ID값들어옴"
-            android:id="@+id/textView11"
+            android:id="@+id/user_id"
             android:layout_gravity="center_horizontal|top"
             android:layout_marginTop="25dp"
             android:clickable="true"

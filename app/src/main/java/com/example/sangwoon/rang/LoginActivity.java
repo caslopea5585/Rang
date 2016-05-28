@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     CheckBox Auto_login;
     SharedPreferences setting;
     SharedPreferences.Editor editor;
-
+    String login_value;
 
 
     @Override
@@ -71,10 +71,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
                     public void onClick(View v) {
 
-                login();
-                Intent go_menu = new Intent(LoginActivity.this,MainActivity.class);
-
-                startActivity(go_menu);
+                //이메일 메인으로 아이디값 받아오기위해
+                 login_value = login();
+                //while(login_value=="email") {
+                    Intent go_menu = new Intent(LoginActivity.this, MainActivity.class);
+                    go_menu.putExtra("login_email",login_value);
+                    startActivityForResult(go_menu,0);
+               // }
 
             }
         });
@@ -90,13 +93,13 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void login() {
+    public String login() {
 
         Log.d(TAG, "Login");
 
         if (!validate()) {
             onLoginFailed();
-            return;
+            return "fail";
         }
 
         _loginButton.setEnabled(false);
@@ -121,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 3000);
+        return email;
     }
 
 

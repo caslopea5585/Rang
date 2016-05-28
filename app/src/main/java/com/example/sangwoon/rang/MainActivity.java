@@ -3,10 +3,14 @@ package com.example.sangwoon.rang;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,10 +28,31 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.NameValuePair;
+import cz.msebera.android.httpclient.client.ClientProtocolException;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
+import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+import cz.msebera.android.httpclient.message.BasicNameValuePair;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -43,13 +68,37 @@ public class MainActivity extends AppCompatActivity  {
     public int count=0;
 
     public Button barcode_button;
-
+    TextView user_id;
+    String from_login_email;
+    String[][] parsedData={};
+    RatingBar left_rating,center_rating,right_rating;
+    Bitmap bmimg1,bmimg2,bmimg3;
+    ImageButton left_product,center_product,right_product;
+    String user_mail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        user_id = (TextView)findViewById(R.id.user_id);
+
+        left_product = (ImageButton)findViewById(R.id.left_product_image);
+        center_product = (ImageButton)findViewById(R.id.centert_product_image);
+        right_product = (ImageButton)findViewById(R.id.right_product_image);
+
+
+        left_rating = (RatingBar)findViewById(R.id.ratingbar1);
+        center_rating = (RatingBar)findViewById(R.id.ratingbar2);
+        right_rating = (RatingBar)findViewById(R.id.ratingbar3);
+
+
+
+        //로그인 성공한 이메일주소 받아오기
+        Intent from_login = getIntent();
+        from_login_email = from_login.getStringExtra("login_email");
+        insertToDatabase(from_login_email);
 
         mListView = (ListView) findViewById(R.id.listView);
 
@@ -64,7 +113,19 @@ public class MainActivity extends AppCompatActivity  {
                 (R.id.edit_message);
         textView.setAdapter(adapter);
 
-        ImageButton barcode_button = (ImageButton)findViewById(R.id.barcode_button);
+
+        user_id.setOnClickListener(new View.OnClickListener() {
+            @Override
+              public void onClick(View v) {
+              Intent user_info_acitivty = new Intent(MainActivity.this,User_info.class);
+
+                user_info_acitivty.putExtra("login_email",user_mail);
+                startActivityForResult(user_info_acitivty,0);
+
+              }
+          });
+
+                ImageButton barcode_button = (ImageButton) findViewById(R.id.barcode_button);
         barcode_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,6 +193,159 @@ public class MainActivity extends AppCompatActivity  {
 
 
     }
+    public void insertToDatabase(String mem_name) {
+        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+                String paramUsername = from_login_email;
+
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("mem_email", paramUsername));
+
+                try {
+
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost(
+                            "http://14.63.213.212/main");
+                    Log.d("22qwerqwerq", "insert" + paramUsername);
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                    HttpResponse response = null;
+                    response = httpClient.execute(httpPost);
+
+                    HttpEntity entity = response.getEntity();
+
+                    //서버응답값
+
+
+                    InputStream in = (InputStream)response.getEntity().getContent();
+                    //in.reset();
+                    Log.d("661361", "456465");
+                    BufferedReader buferedReader = new BufferedReader(new InputStreamReader(in,"utf-8"));
+                    Log.d("888888", "456465");
+                    String line = null;
+                    String result = "";
+
+                    while ((line = buferedReader.readLine()) != null) {
+
+                        result += line;
+
+                    }
+                    Log.d("wehhdfg", result + 456);
+
+                    return result;
+
+
+                } catch (ClientProtocolException e) {
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return "success";
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                parsedData = jsonParserList(result);
+                super.onPostExecute(result);
+
+            }
+        }
+        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
+        Log.d("email_id_check", from_login_email);
+        sendPostReqAsyncTask.execute(from_login_email);
+
+    }
+    public String[][] jsonParserList(String pRecvServerPage) {
+
+        //Log.i("QQQQ", pRecvServerPage);
+        Thread mThread = new Thread();
+        Log.d("넘어오는 값", pRecvServerPage);
+        try {
+
+
+            JSONObject json = new JSONObject(pRecvServerPage);
+            // 서버로 부터 넘어온 키값을 넣어줌
+            JSONArray jArr = json.getJSONArray("food");
+
+
+            // 받아온 pRecvServerPage를 분석하는 부분
+
+            String[] jsonName = {"food_image", "food_barcode","food_stargrade"};
+            String[][] parseredData = new String[jArr.length()][jsonName.length];
+            for (int i = 0; i < jArr.length(); i++) {
+                json = jArr.getJSONObject(i);
+
+                for(int j = 0; j < jsonName.length; j++) {
+                    parseredData[i][j] = json.getString(jsonName[j]);
+                }
+            }
+
+            float left_rating_value = Float.valueOf(parseredData[0][2]);
+            float center_rating_value = Float.valueOf(parseredData[1][2]);
+            float right_rating_value = Float.valueOf(parseredData[2][2]);
+
+            left_rating.setRating(left_rating_value);
+            center_rating.setRating(center_rating_value);
+            right_rating.setRating(right_rating_value);
+
+
+            //for(int image_view=0;image_view<3;image_view++){
+                new LoadImage().execute(parseredData[0][0],parseredData[1][0],parseredData[2][0]);
+            //}
+
+
+            JSONObject json2 = new JSONObject(pRecvServerPage);
+            JSONObject a = json2.getJSONObject("person");
+            user_mail = a.getString("mem_email");
+
+            user_id.setText(user_mail);
+
+            Log.d("value",parseredData[0][0]);
+
+
+
+            return parseredData;
+
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+
+            return null;
+
+        }
+
+    }
+    private class LoadImage extends AsyncTask<String, String, Bitmap> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+
+        }
+        protected Bitmap doInBackground(String... args) {
+            try {
+                bmimg1 = BitmapFactory.decodeStream((InputStream) new URL(args[0]).getContent());
+                bmimg2 = BitmapFactory.decodeStream((InputStream) new URL(args[1]).getContent());
+                bmimg3 = BitmapFactory.decodeStream((InputStream) new URL(args[2]).getContent());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            return bmimg1;
+        }
+
+        protected void onPostExecute(Bitmap image) {
+            //Log.d("dd", "ddd" + bmimg);
+
+            left_product.setImageBitmap(bmimg1);
+            center_product.setImageBitmap(bmimg2);
+            right_product.setImageBitmap(bmimg3);
+
+        }
+    }
+
 
 
     private void initSildeMenu() {
@@ -362,6 +576,16 @@ public class MainActivity extends AppCompatActivity  {
 
 
     }
+
+
+
+
+
+
+
+
+
+
 
 
 }
