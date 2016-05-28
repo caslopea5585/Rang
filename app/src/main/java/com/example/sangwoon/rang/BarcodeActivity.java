@@ -37,12 +37,12 @@ import cz.msebera.android.httpclient.message.BasicNameValuePair;
 public class BarcodeActivity extends AppCompatActivity {
 
 
-    String barcode_num,food_name,food_name_getvalue,test,load_value,line;
+    String barcode_num="";
     String qwer[]={"17"};
     String[][] parsedData={};
     String pRecvServerPage="";
     int food_calbo,food_fat,food_protein,food_na,food_col,food_energy;
-    TextView food_calbo_getvalue;
+    TextView food_calbo_getvalue,food_name_getvalue,food_fat_getvalue,food_protein_getvalue,food_na_getvalue,food_col_getvalue,food_energy_getvalue;
     InputStreamReader sr = null;
 
 
@@ -50,55 +50,35 @@ public class BarcodeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode);
-       // new IntentIntegrator(BarcodeActivity.this).initiateScan();
-
-
+       new IntentIntegrator(BarcodeActivity.this).initiateScan();
 
 
         ImageView[] food_image = new ImageView[1] ;
         food_image[0] = (ImageView)findViewById(R.id.value01_arrow);
-        barcode_num="8801043016049";
-        insertToDatabase(barcode_num);
+        //barcode_num="8801043016049";
+        Log.d("eee", barcode_num + 456);
 
 
-
-        TextView food_name_getvalue = (TextView)findViewById(R.id.food_name);
+        food_name_getvalue = (TextView)findViewById(R.id.food_name);
         food_name_getvalue.setText("0");
-        food_name = food_name_getvalue.getText().toString();
 
         food_calbo_getvalue = (TextView)findViewById(R.id.food_calbo);
-
         food_calbo_getvalue.setText("0");
-        //qwer[0]="10";
-        test= qwer[0];
 
-        food_calbo_getvalue.setText(test);
-
-        food_calbo = Integer.parseInt(food_calbo_getvalue.getText().toString());
-
-        TextView food_fat_getvalue = (TextView)findViewById(R.id.food_fat);
+        food_fat_getvalue = (TextView)findViewById(R.id.food_fat);
         food_fat_getvalue.setText("0");
 
-        food_fat = Integer.parseInt(food_fat_getvalue.getText().toString());
-
-        TextView food_protein_getvalue = (TextView)findViewById(R.id.food_protein);
+        food_protein_getvalue = (TextView)findViewById(R.id.food_protein);
         food_protein_getvalue.setText("0");
-        food_protein = Integer.parseInt(food_protein_getvalue.getText().toString());
 
-        TextView food_na_getvalue = (TextView)findViewById(R.id.food_na);
+        food_na_getvalue = (TextView)findViewById(R.id.food_na);
         food_na_getvalue.setText("0");
-        food_na = Integer.parseInt(food_na_getvalue.getText().toString());
 
-        TextView food_col_getvalue = (TextView)findViewById(R.id.food_col);
+        food_col_getvalue = (TextView)findViewById(R.id.food_col);
         food_col_getvalue.setText("0");
-        food_col = Integer.parseInt(food_col_getvalue.getText().toString());
 
-        TextView food_energy_getvalue = (TextView)findViewById(R.id.food_energy);
+        food_energy_getvalue = (TextView)findViewById(R.id.food_energy);
         food_energy_getvalue.setText("0");
-        food_energy = Integer.parseInt(food_energy_getvalue.getText().toString());
-
-        food_name="0";
-
 
 
         //재촬영
@@ -129,13 +109,10 @@ public class BarcodeActivity extends AppCompatActivity {
         class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
             @Override
             protected String doInBackground(String... params) {
-                String paramUsername = "8801043016049";
-
-
+                String paramUsername = barcode_num;
 
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                 nameValuePairs.add(new BasicNameValuePair("food_barcode", paramUsername));
-
 
                 try {
 
@@ -151,11 +128,6 @@ public class BarcodeActivity extends AppCompatActivity {
 
                     //서버응답값
 
-                    //String value = EntityUtils.toString(response.getEntity());
-                    //Log.d("2222123123", "ddd" + value);
-                    //load_value = value;
-
-                    Log.d("123123121", "456465");
 
                     InputStream in = (InputStream)response.getEntity().getContent();
                     //in.reset();
@@ -165,15 +137,11 @@ public class BarcodeActivity extends AppCompatActivity {
                     String line = null;
                     String result = "";
 
-                    //Log.d("khkkh",result);
                     while ((line = buferedReader.readLine()) != null) {
 
                         result += line;
 
                     }
-
-
-
                     Log.d("wehhdfg", result + 456);
 
                     return result;
@@ -199,11 +167,6 @@ public class BarcodeActivity extends AppCompatActivity {
 
         sendPostReqAsyncTask.execute(barcode_num);
 
-
-
-
-
-
     }
     public String[][] jsonParserList(String pRecvServerPage) {
 
@@ -218,7 +181,16 @@ public class BarcodeActivity extends AppCompatActivity {
             String food_calbo = a.getString("food_calbo");
             String food_stargrade = a.getString("food_stargrade");
 
-            food_calbo_getvalue.setText(   food_stargrade);
+
+            food_name_getvalue.setText(a.getString("food_name"));
+            food_calbo_getvalue.setText(a.getString("food_calbo")+"g");
+            food_fat_getvalue.setText(a.getString("food_fat")+"g");
+            food_protein_getvalue.setText(a.getString("food_protein")+"g");
+            food_na_getvalue.setText(a.getString("food_na")+"g");
+            food_col_getvalue.setText(a.getString("food_chol")+"g");
+            food_energy_getvalue.setText(a.getString("food_energy")+"g");
+
+
             Log.e("aaaaaaaaa", food_calbo + food_stargrade);
 
             String qwer = "";
@@ -263,9 +235,7 @@ public class BarcodeActivity extends AppCompatActivity {
 
 
             barcode_num = result.getContents();
-
-            Product_name.setText(result.getContents());
-
+            insertToDatabase(barcode_num);
         }
 
     }

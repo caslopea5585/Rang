@@ -16,10 +16,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -290,9 +287,6 @@ public class SignupActivity extends AppCompatActivity {
                 String parammemobesity = params[7];
                 String parammemhighblood = params[8];
                 String parammemhyper = params[9];
-
-
-
 
 
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();

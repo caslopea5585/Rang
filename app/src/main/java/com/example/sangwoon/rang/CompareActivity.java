@@ -1,8 +1,10 @@
 package com.example.sangwoon.rang;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,14 +13,37 @@ import android.widget.TextView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.NameValuePair;
+import cz.msebera.android.httpclient.client.ClientProtocolException;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
+import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+import cz.msebera.android.httpclient.message.BasicNameValuePair;
 
 
 public class CompareActivity extends AppCompatActivity {
-    int count ;
-
+    String count = "0";
+    String barcode_num="";
     //value1 -  애너지, 탄수화물 , 지방, 단백질, 나트륨, 콜레스트롤
-    int left_value_1,left_value_2,left_value_3,left_value_4,left_value_5,left_value_6;
-    int right_value_1,right_value_2,right_value_3,right_value_4,right_value_5,right_value_6;
+   int left_value_1,left_value_2,left_value_3,left_value_4,left_value_5,left_value_6;
+   int right_value_1,right_value_2,right_value_3,right_value_4,right_value_5,right_value_6;
+    String[][] parsedData={};
+    TextView Left_value1,Left_value2,Left_value3,Left_value4,Left_value5,Left_value6;
+    TextView Right_value1,Right_value2,Right_value3,Right_value4,Right_value5,Right_value6;
+    TextView left_Product_name,right_Product_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,20 +52,20 @@ public class CompareActivity extends AppCompatActivity {
 
 
 
-        TextView Left_value1 = (TextView)findViewById(R.id.Left_value1);
-        TextView Left_value2 = (TextView)findViewById(R.id.Left_value2);
-        TextView Left_value3 = (TextView)findViewById(R.id.Left_value3);
-        TextView Left_value4 = (TextView)findViewById(R.id.Left_value4);
-        TextView Left_value5 = (TextView)findViewById(R.id.Left_value5);
-        TextView Left_value6 = (TextView)findViewById(R.id.Left_value6);
+        Left_value1 = (TextView)findViewById(R.id.Left_value1);
+        Left_value2 = (TextView)findViewById(R.id.Left_value2);
+        Left_value3 = (TextView)findViewById(R.id.Left_value3);
+        Left_value4 = (TextView)findViewById(R.id.Left_value4);
+        Left_value5 = (TextView)findViewById(R.id.Left_value5);
+        Left_value6 = (TextView)findViewById(R.id.Left_value6);
 
 
-        TextView Right_value1 = (TextView)findViewById(R.id.Right_value1);
-        TextView Right_value2 = (TextView)findViewById(R.id.Right_value2);
-        TextView Right_value3 = (TextView)findViewById(R.id.Right_value3);
-        TextView Right_value4 = (TextView)findViewById(R.id.Right_value4);
-        TextView Right_value5 = (TextView)findViewById(R.id.Right_value5);
-        TextView Right_value6 = (TextView)findViewById(R.id.Right_value6);
+        Right_value1 = (TextView)findViewById(R.id.Right_value1);
+        Right_value2 = (TextView)findViewById(R.id.Right_value2);
+        Right_value3 = (TextView)findViewById(R.id.Right_value3);
+        Right_value4 = (TextView)findViewById(R.id.Right_value4);
+        Right_value5 = (TextView)findViewById(R.id.Right_value5);
+        Right_value6 = (TextView)findViewById(R.id.Right_value6);
 
 
 
@@ -175,14 +200,13 @@ public class CompareActivity extends AppCompatActivity {
             }
         }
 
-        value_compare();
+
 
         Button left_product = (Button)findViewById(R.id.left_product_barcode);
         left_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                count=1;
-
+                count="1";
                 new IntentIntegrator(CompareActivity.this).initiateScan();
 
 
@@ -193,14 +217,17 @@ public class CompareActivity extends AppCompatActivity {
         right_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                count =2;
+                count ="2";
 
                 new IntentIntegrator(CompareActivity.this).initiateScan();
 
             }
         });
-
+        value_compare();
     }
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -210,14 +237,21 @@ public class CompareActivity extends AppCompatActivity {
         //result.getFormatname 바코드 형식
 
         //정상적으로 출력되었을때
+        Log.d("qwe333f",count);
+        if(count=="1"){
+            left_Product_name = (TextView) findViewById(R.id.left_productName);               //바코드 넘버 표출
+            barcode_num = result.getContents();
+            insertToDatabase(result.getContents(),count);
 
-        if(count==1){
-            TextView left_Product_name = (TextView) findViewById(R.id.left_productName);               //바코드 넘버 표출
-            left_Product_name.setText(result.getContents());
+
+            //left_Product_name.setText(result.getContents());
         }
-        else {
-            TextView right_Product_name = (TextView) findViewById(R.id.right_productName);               //바코드 넘버 표출
-            right_Product_name.setText(result.getContents());
+        else if(count=="2") {
+            right_Product_name = (TextView) findViewById(R.id.right_productName);               //바코드 넘버 표출
+            barcode_num = result.getContents();
+            insertToDatabase(result.getContents(),count);
+
+            //right_Product_name.setText(result.getContents());
         }
 
     }
@@ -319,6 +353,132 @@ public class CompareActivity extends AppCompatActivity {
 
 
     }
+    public void insertToDatabase(String mem_name,String count) {
+         String value_count = count;
+
+        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+                String paramUsername = barcode_num;
+
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("food_barcode", paramUsername));
+
+                try {
+
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost(
+                            "http://14.63.213.212/main/barcode");
+                    Log.d("22qwerqwerq", "insert" + paramUsername);
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                    HttpResponse response = null;
+                    response = httpClient.execute(httpPost);
+
+                    HttpEntity entity = response.getEntity();
+
+                    //서버응답값
+
+
+                    InputStream in = (InputStream)response.getEntity().getContent();
+                    //in.reset();
+                    Log.d("661361", "456465");
+                    BufferedReader buferedReader = new BufferedReader(new InputStreamReader(in,"utf-8"));
+                    Log.d("888888", "456465");
+                    String line = null;
+                    String result = "";
+                    //result += value_count;
+                    while ((line = buferedReader.readLine()) != null) {
+
+                        result += line;
+
+                    }
+                    Log.d("wehhdfg", result + 456);
+
+                    return result;
+
+
+                } catch (ClientProtocolException e) {
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return "success";
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                parsedData = jsonParserList(result);
+                super.onPostExecute(result);
+
+            }
+        }
+        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
+
+        sendPostReqAsyncTask.execute(barcode_num);
+
+    }
+    public String[][] jsonParserList(String pRecvServerPage) {
+
+        //Log.i("QQQQ", pRecvServerPage);
+
+        try {
+            //value1 -  애너지, 탄수화물 , 지방, 단백질, 나트륨, 콜레스트롤
+            JSONObject json = new JSONObject(pRecvServerPage);
+            JSONObject a = json.getJSONObject("result");
+
+
+            //String count = a.getString("count");
+            String food_calbo = a.getString("food_calbo");
+            String food_stargrade = a.getString("food_stargrade");
+            //Log.d("count");
+            Log.d("qwe",count);
+            if(count=="1"){
+                left_Product_name.setText(a.getString("food_name"));
+                Left_value1.setText(a.getString("food_energy")+"g");
+                Left_value2.setText(a.getString("food_calbo")+"g");
+                Left_value3.setText(a.getString("food_fat")+"g");
+                Left_value4.setText(a.getString("food_protein")+"g");
+                Left_value5.setText(a.getString("food_na")+"g");
+                Left_value6.setText(a.getString("food_chol")+"g");
+
+            }
+            else if(count=="2"){
+                right_Product_name.setText(a.getString("food_name"));
+                Right_value1.setText(a.getString("food_energy") + "g");
+                Right_value2.setText(a.getString("food_calbo")+"g");
+                Right_value3.setText(a.getString("food_fat")+"g");
+                Right_value4.setText(a.getString("food_protein")+"g");
+                Right_value5.setText(a.getString("food_na")+"g");
+                Right_value6.setText(a.getString("food_chol")+"g");
+            }
+
+
+            Log.e("aaaaaaaaa", food_calbo + food_stargrade);
+
+            String qwer = "";
+            qwer = json.toString();
+            Log.d("dddd", qwer);
+
+
+
+            String[][] parseredData = new String[0][0];
+
+            return parseredData;
+
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+
+            return null;
+
+        }
+
+    }
+
+
+
+
 
 
 
