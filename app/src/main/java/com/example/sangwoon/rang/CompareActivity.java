@@ -1,6 +1,8 @@
 package com.example.sangwoon.rang;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +22,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,12 +47,17 @@ public class CompareActivity extends AppCompatActivity {
     TextView Left_value1,Left_value2,Left_value3,Left_value4,Left_value5,Left_value6;
     TextView Right_value1,Right_value2,Right_value3,Right_value4,Right_value5,Right_value6;
     TextView left_Product_name,right_Product_name;
+    ImageView left_product_image, right_product_image;
+    ImageView product_image;
+    Bitmap bmimg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compare);
 
+        left_product_image = (ImageView)findViewById(R.id.left_image);
+        right_product_image = (ImageView)findViewById(R.id.right_image);
 
 
         Left_value1 = (TextView)findViewById(R.id.Left_value1);
@@ -392,7 +400,7 @@ public class CompareActivity extends AppCompatActivity {
                         result += line;
 
                     }
-                    Log.d("wehhdfg", result + 456);
+                    //Log.d("wehhdfg", result + 456);
 
                     return result;
 
@@ -431,6 +439,7 @@ public class CompareActivity extends AppCompatActivity {
             //String count = a.getString("count");
             String food_calbo = a.getString("food_calbo");
             String food_stargrade = a.getString("food_stargrade");
+            String food_image_url = a.getString("food_image");
             //Log.d("count");
             Log.d("qwe",count);
             if(count=="1"){
@@ -442,6 +451,7 @@ public class CompareActivity extends AppCompatActivity {
                 Left_value5.setText(a.getString("food_na")+"g");
                 Left_value6.setText(a.getString("food_chol")+"g");
 
+
             }
             else if(count=="2"){
                 right_Product_name.setText(a.getString("food_name"));
@@ -450,7 +460,8 @@ public class CompareActivity extends AppCompatActivity {
                 Right_value3.setText(a.getString("food_fat")+"g");
                 Right_value4.setText(a.getString("food_protein")+"g");
                 Right_value5.setText(a.getString("food_na")+"g");
-                Right_value6.setText(a.getString("food_chol")+"g");
+                Right_value6.setText(a.getString("food_chol") + "g");
+
             }
 
 
@@ -463,7 +474,7 @@ public class CompareActivity extends AppCompatActivity {
 
 
             String[][] parseredData = new String[0][0];
-
+            new LoadImage().execute(food_image_url);
             return parseredData;
 
         } catch (JSONException e) {
@@ -475,6 +486,38 @@ public class CompareActivity extends AppCompatActivity {
         }
 
     }
+
+    private class LoadImage extends AsyncTask<String, String, Bitmap> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+
+        }
+        protected Bitmap doInBackground(String... args) {
+            try {
+                bmimg = BitmapFactory.decodeStream((InputStream) new URL(args[0]).getContent());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return bmimg;
+        }
+
+        protected void onPostExecute(Bitmap image) {
+            Log.d("dd", "ddd" + bmimg);
+
+
+            if(count=="1") {
+                left_product_image.setImageBitmap(image);
+            }
+            else if (count=="2"){
+                right_product_image.setImageBitmap(image);
+            }
+
+        }
+    }
+
 
 
 

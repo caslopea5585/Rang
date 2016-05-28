@@ -1,6 +1,8 @@
 package com.example.sangwoon.rang;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +22,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +47,8 @@ public class BarcodeActivity extends AppCompatActivity {
     int food_calbo,food_fat,food_protein,food_na,food_col,food_energy;
     TextView food_calbo_getvalue,food_name_getvalue,food_fat_getvalue,food_protein_getvalue,food_na_getvalue,food_col_getvalue,food_energy_getvalue;
     InputStreamReader sr = null;
-
+    ImageView product_image;
+    Bitmap bmimg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,7 @@ public class BarcodeActivity extends AppCompatActivity {
         //barcode_num="8801043016049";
         Log.d("eee", barcode_num + 456);
 
+        product_image = (ImageView)findViewById(R.id.imageView);
 
         food_name_getvalue = (TextView)findViewById(R.id.food_name);
         food_name_getvalue.setText("0");
@@ -142,7 +147,7 @@ public class BarcodeActivity extends AppCompatActivity {
                         result += line;
 
                     }
-                    Log.d("wehhdfg", result + 456);
+                    //Log.d("wehhdfg", result + 456);
 
                     return result;
 
@@ -171,6 +176,7 @@ public class BarcodeActivity extends AppCompatActivity {
     public String[][] jsonParserList(String pRecvServerPage) {
 
         //Log.i("QQQQ", pRecvServerPage);
+        Thread mThread = new Thread();
 
         try {
 
@@ -180,7 +186,8 @@ public class BarcodeActivity extends AppCompatActivity {
 
             String food_calbo = a.getString("food_calbo");
             String food_stargrade = a.getString("food_stargrade");
-
+            //bmimg = BitmapFactory.decodeStream(a.getString("food_image"));
+            String food_image_url = a.getString("food_image");
 
             food_name_getvalue.setText(a.getString("food_name"));
             food_calbo_getvalue.setText(a.getString("food_calbo")+"g");
@@ -188,10 +195,10 @@ public class BarcodeActivity extends AppCompatActivity {
             food_protein_getvalue.setText(a.getString("food_protein")+"g");
             food_na_getvalue.setText(a.getString("food_na")+"g");
             food_col_getvalue.setText(a.getString("food_chol")+"g");
-            food_energy_getvalue.setText(a.getString("food_energy")+"g");
+            food_energy_getvalue.setText(a.getString("food_energy") + "g");
 
 
-            Log.e("aaaaaaaaa", food_calbo + food_stargrade);
+            Log.e("aaaaaaaaa", food_calbo + food_image_url);
 
             String qwer = "";
             qwer = json.toString();
@@ -199,7 +206,9 @@ public class BarcodeActivity extends AppCompatActivity {
 
 
 
+
             String[][] parseredData = new String[0][0];
+            new LoadImage().execute(food_image_url);
 
             return parseredData;
 
@@ -212,7 +221,31 @@ public class BarcodeActivity extends AppCompatActivity {
         }
 
     }
+    private class LoadImage extends AsyncTask<String, String, Bitmap> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
 
+
+        }
+        protected Bitmap doInBackground(String... args) {
+            try {
+                bmimg = BitmapFactory.decodeStream((InputStream)new URL(args[0]).getContent());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return bmimg;
+        }
+
+        protected void onPostExecute(Bitmap image) {
+            Log.d("dd","ddd"+bmimg);
+
+            product_image.setImageBitmap(image);
+
+
+        }
+    }
 
 
     @Override
