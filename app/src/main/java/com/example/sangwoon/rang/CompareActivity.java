@@ -118,96 +118,95 @@ public class CompareActivity extends AppCompatActivity {
         arrow[5] = (ImageView)findViewById(R.id.value06_arrow);
 
 
-        if(left_value_1 !=0 && right_value_1 !=0){
-            if(left_value_1==right_value_1){
-                arrow[0].setImageResource(R.drawable.equal);
-                //같은 모양
-            }
-            else if(left_value_1 > right_value_1){
-                arrow[0].setImageResource(R.drawable.up_arrow);
-                //화살표 윗모양
-            }
-            else {
-                arrow[0].setImageResource(R.drawable.down_arrow);
-                //화살표 아래모양
-            }
-        }
-
-        if(left_value_2 !=0 && right_value_2 !=0){
-            if(left_value_2==right_value_2){
-                arrow[1].setImageResource(R.drawable.equal);
-                //같은 모양
-            }
-            else if(left_value_2 > right_value_2){
-                arrow[1].setImageResource(R.drawable.up_arrow);
-                //화살표 윗모양
-            }
-            else {
-                arrow[1].setImageResource(R.drawable.down_arrow);
-                //화살표 아래모양
-            }
-        }
-
-        if(left_value_3 !=0 && right_value_3 !=0){
-            if(left_value_3==right_value_3){
-                arrow[2].setImageResource(R.drawable.equal);
-                //같은 모양
-            }
-            else if(left_value_3 > right_value_3){
-                arrow[2].setImageResource(R.drawable.up_arrow);
-                //화살표 윗모양
-            }
-            else {
-                arrow[2].setImageResource(R.drawable.down_arrow);
-                //화살표 아래모양
-            }
-        }
-
-        if(left_value_4 !=0 && right_value_4 !=0){
-            if(left_value_4==right_value_4){
-                 arrow[3].setImageResource(R.drawable.equal);
-                //같은 모양
-            }
-            else if(left_value_4 > right_value_4){
-                arrow[3].setImageResource(R.drawable.up_arrow);
-                //화살표 윗모양
-            }
-            else {
-                arrow[3].setImageResource(R.drawable.down_arrow);
-                //화살표 아래모양
-            }
-        }
-
-        if(left_value_5 !=0 && right_value_5 !=0){
-            if(left_value_5==right_value_5){
-                arrow[4].setImageResource(R.drawable.equal);
-                //같은 모양
-            }
-            else if(left_value_5 > right_value_5){
-                arrow[4].setImageResource(R.drawable.up_arrow);
-                //화살표 윗모양
-            }
-            else {
-                arrow[4].setImageResource(R.drawable.down_arrow);
-                //화살표 아래모양
-            }
-        }
-
-        if(left_value_6 !=0 && right_value_6 !=0){
-            if(left_value_6==right_value_6){
-                arrow[5].setImageResource(R.drawable.equal);
-                //같은 모양
-            }
-            else if(left_value_6 > right_value_6){
-                arrow[5].setImageResource(R.drawable.up_arrow);
-                //화살표 윗모양
-            }
-            else {
-                arrow[5].setImageResource(R.drawable.down_arrow);
-                //화살표 아래모양
-            }
-        }
-
+//        if(left_value_1 !=0 && right_value_1 !=0){
+//            if(left_value_1==right_value_1){
+//                arrow[0].setImageResource(R.drawable.equal);
+//                //같은 모양
+//            }
+//            else if(left_value_1 > right_value_1){
+//                arrow[0].setImageResource(R.drawable.up_arrow);
+//                //화살표 윗모양
+//            }
+//            else {
+//                arrow[0].setImageResource(R.drawable.down_arrow);
+//                //화살표 아래모양
+//            }
+//        }
+//
+//        if(left_value_2 !=0 && right_value_2 !=0){
+//            if(left_value_2==right_value_2){
+//                arrow[1].setImageResource(R.drawable.equal);
+//                //같은 모양
+//            }
+//            else if(left_value_2 > right_value_2){
+//                arrow[1].setImageResource(R.drawable.up_arrow);
+//                //화살표 윗모양
+//            }
+//            else {
+//                arrow[1].setImageResource(R.drawable.down_arrow);
+//                //화살표 아래모양
+//            }
+//        }
+//
+//        if(left_value_3 !=0 && right_value_3 !=0){
+//            if(left_value_3==right_value_3){
+//                arrow[2].setImageResource(R.drawable.equal);
+//                //같은 모양
+//            }
+//            else if(left_value_3 > right_value_3){
+//                arrow[2].setImageResource(R.drawable.up_arrow);
+//                //화살표 윗모양
+//            }
+//            else {
+//                arrow[2].setImageResource(R.drawable.down_arrow);
+//                //화살표 아래모양
+//            }
+//        }
+//
+//        if(left_value_4 !=0 && right_value_4 !=0){
+//            if(left_value_4==right_value_4){
+//                 arrow[3].setImageResource(R.drawable.equal);
+//                //같은 모양
+//            }
+//            else if(left_value_4 > right_value_4){
+//                arrow[3].setImageResource(R.drawable.up_arrow);
+//                //화살표 윗모양
+//            }
+//            else {
+//                arrow[3].setImageResource(R.drawable.down_arrow);
+//                //화살표 아래모양
+//            }
+//        }
+//
+//        if(left_value_5 !=0 && right_value_5 !=0){
+//            if(left_value_5==right_value_5){
+//                arrow[4].setImageResource(R.drawable.equal);
+//                //같은 모양
+//            }
+//            else if(left_value_5 > right_value_5){
+//                arrow[4].setImageResource(R.drawable.up_arrow);
+//                //화살표 윗모양
+//            }
+//            else {
+//                arrow[4].setImageResource(R.drawable.down_arrow);
+//                //화살표 아래모양
+//            }
+//        }
+//
+//        if(left_value_6 !=0 && right_value_6 !=0){
+//            if(left_value_6==right_value_6){
+//                arrow[5].setImageResource(R.drawable.equal);
+//                //같은 모양
+//            }
+//            else if(left_value_6 > right_value_6){
+//                arrow[5].setImageResource(R.drawable.up_arrow);
+//                //화살표 윗모양
+//            }
+//            else {
+//                arrow[5].setImageResource(R.drawable.down_arrow);
+//                //화살표 아래모양
+//            }
+//        }
 
 
         Button left_product = (Button)findViewById(R.id.left_product_barcode);
@@ -376,7 +375,7 @@ public class CompareActivity extends AppCompatActivity {
 
                     HttpClient httpClient = new DefaultHttpClient();
                     HttpPost httpPost = new HttpPost(
-                            "http://14.63.213.212/main/barcode");
+                            "http://14.63.213.212:55/main/barcode");
                     Log.d("22qwerqwerq", "insert" + paramUsername);
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                     HttpResponse response = null;
@@ -437,8 +436,8 @@ public class CompareActivity extends AppCompatActivity {
 
 
             //String count = a.getString("count");
-            String food_calbo = a.getString("food_calbo");
-            String food_stargrade = a.getString("food_stargrade");
+            //String food_calbo = a.getString("food_calbo");
+            //String food_stargrade = a.getString("food_stargrade");
             String food_image_url = a.getString("food_image");
             //Log.d("count");
             Log.d("qwe",count);
@@ -465,14 +464,14 @@ public class CompareActivity extends AppCompatActivity {
             }
 
 
-            Log.e("aaaaaaaaa", food_calbo + food_stargrade);
+            //Log.e("aaaaaaaaa", food_calbo + food_stargrade);
 
             String qwer = "";
             qwer = json.toString();
             Log.d("dddd", qwer);
 
 
-
+            value_compare();
             String[][] parseredData = new String[0][0];
             new LoadImage().execute(food_image_url);
             return parseredData;

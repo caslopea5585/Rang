@@ -44,13 +44,16 @@ public class SignupActivity extends AppCompatActivity {
     private CheckBox[] mCheckBoxs;
     private Dialog mMainDialog;
     public RadioButton sex_men, sex_women;
-    public RadioGroup sex_group ;
+    public RadioGroup sex_group;
     public EditText a_add_info_age,a_add_info_weight;
     public int value_add_info_weight;
     public String value_add_info_age;
     public CheckBox check_all,check_one,check_two,check_three,check_four;
-    public String check_value_one,check_value_two,check_value_three,check_value_four,check_sex;
-    public String value,mem_phone,mem_age,mem_sex,mem_weight,mem_diabetes,mem_obesity,mem_highblood,mem_hyper;
+
+    public String mem_age="0",mem_sex="0",mem_weight="0",mem_diabetes="0",mem_obesity="0",mem_highblood="0",mem_hyper="0";
+
+
+
     @InjectView(R.id.input_name)
     EditText _nameText;
     @InjectView(R.id.input_email)
@@ -71,14 +74,55 @@ public class SignupActivity extends AppCompatActivity {
 
 
 
+
         Button add_info_select = (Button) findViewById(R.id.add_info_select);
         add_info_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+                sex_group = (RadioGroup)mMainDialog.findViewById(R.id.sex_select);
+                sex_men= (RadioButton)mMainDialog.findViewById(R.id.add_info_sex_men);
+                sex_women = (RadioButton)mMainDialog.findViewById(R.id.add_info_sex_women);
+
+
+                a_add_info_age = (EditText)mMainDialog.findViewById(R.id.edit_add_info_age);
+                a_add_info_weight =(EditText)mMainDialog.findViewById(R.id.edit_add_info_weight);
+                check_all=(CheckBox)mMainDialog.findViewById(R.id.cb_check_all);
+                check_one=(CheckBox)mMainDialog.findViewById(R.id.cb_01);
+                check_two=(CheckBox)mMainDialog.findViewById(R.id.cb_02);
+                check_three=(CheckBox)mMainDialog.findViewById(R.id.cb_03);
+                check_four=(CheckBox)mMainDialog.findViewById(R.id.cb_04);
+
+
+
+
+                mRadioBoxs = new RadioButton[]{
+
+
+                        (RadioButton) mMainDialog.findViewById(R.id.add_info_sex_men),
+                        (RadioButton) mMainDialog.findViewById(R.id.add_info_sex_women),
+
+
+                };
+
+                mCheckBoxs = new CheckBox[]{
+                        (CheckBox)mMainDialog.findViewById(R.id.cb_check_all),
+                        (CheckBox)mMainDialog.findViewById(R.id.cb_01),
+                        (CheckBox)mMainDialog.findViewById(R.id.cb_02),
+                        (CheckBox)mMainDialog.findViewById(R.id.cb_03),
+                        (CheckBox)mMainDialog.findViewById(R.id.cb_04)
+
+                };
+
+
                 switch (v.getId()) {
                     case R.id.add_info_select:
+
                         mMainDialog = createDialog();
                         mMainDialog.show();
+
                         break;
                 }
 
@@ -103,7 +147,6 @@ public class SignupActivity extends AppCompatActivity {
         // });
     }
 
-
     private AlertDialog createDialog() {
 
 
@@ -111,77 +154,68 @@ public class SignupActivity extends AppCompatActivity {
         AlertDialog.Builder ab = new AlertDialog.Builder(this);
         ab.setTitle("부가정보선택");
         ab.setView(innerView);
-        //0이 남자 1이 여자
-        sex_men = (RadioButton) findViewById(R.id.add_info_sex_men);
-        sex_women = (RadioButton) findViewById(R.id.add_info_sex_women);
-        sex_group = (RadioGroup)findViewById(R.id.sex_select);
 
 
 
-        a_add_info_age = (EditText)innerView.findViewById(R.id.edit_add_info_age);
-        a_add_info_weight =(EditText)innerView.findViewById(R.id.edit_add_info_weight);
-        check_all=(CheckBox)innerView.findViewById(R.id.cb_check_all);
-        check_one=(CheckBox)innerView.findViewById(R.id.cb_01);
-        check_two=(CheckBox)innerView.findViewById(R.id.cb_02);
-        check_three=(CheckBox)innerView.findViewById(R.id.cb_03);
-        check_four=(CheckBox)innerView.findViewById(R.id.cb_04);
-
-
-
-
-        mRadioBoxs = new RadioButton[]{
-
-
-                (RadioButton) innerView.findViewById(R.id.add_info_sex_men),
-                (RadioButton) innerView.findViewById(R.id.add_info_sex_women),
-
-
-        };
-
-        mCheckBoxs = new CheckBox[]{
-                (CheckBox)innerView.findViewById(R.id.cb_check_all),
-                (CheckBox)innerView.findViewById(R.id.cb_01),
-                (CheckBox)innerView.findViewById(R.id.cb_02),
-                (CheckBox)innerView.findViewById(R.id.cb_03),
-                (CheckBox)innerView.findViewById(R.id.cb_04)
-
-        };
-//
-//        if(sex_men.isChecked()){
-//            check_sex = "1";
-//        }
-        check_value_one="0";
-        check_value_two="0";
-        check_value_three="0";
-        check_value_four="0";
-
-        if(check_all.isChecked()){
-            check_value_one="1";
-            check_value_two="1";
-            check_value_three="1";
-            check_value_four="1";
-
-        }else if(check_one.isChecked()){
-            //당뇨
-            check_value_one="1";
-
-        }else if(check_two.isChecked()){
-            //비만
-            check_value_two="1";
-        }else if(check_three.isChecked()){
-            //고혈압
-            check_value_three="1";
-        }else if(check_four.isChecked()){
-            //고지혈증
-            check_value_four="1";
-        }
-        check_sex = "1";
         ab.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
 
-                value_add_info_age=a_add_info_age.getText().toString();
-                value_add_info_weight=Integer.parseInt(a_add_info_weight.getText().toString());
+
+
+                sex_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+
+                        if(checkedId==R.id.add_info_sex_men){
+                            mem_sex="0";
+                        }
+                        if(checkedId==R.id.add_info_sex_women){
+                            mem_sex="1";
+                        }
+                        else{
+                            mem_sex="";
+                        }
+
+                    }
+                });
+
+                mem_diabetes="0";            //당뇨
+                mem_obesity="0";            //비만
+                mem_highblood="0";          //고혈압
+                mem_hyper="0";           //고지혈증
+
+//                if(check_all.isChecked()==true){
+//                    mem_diabetes="1";
+//                    mem_obesity="1";
+//                    mem_highblood="1";
+//                    mem_hyper="1";
+//
+//                }
+                if(check_one.isChecked()==true){
+                    //당뇨
+                    mem_diabetes="1";
+
+                }
+                if(check_two.isChecked()==true){
+                    //비만
+                    mem_obesity="1";
+                }
+                if(check_three.isChecked()==true){
+                    //고혈압
+                    mem_highblood="1";
+                }
+                if(check_four.isChecked()==true){
+                    //고지혈증
+                    mem_hyper="1";
+                }
+
+                mem_age=(a_add_info_age.getText().toString());
+                mem_weight=(a_add_info_weight.getText().toString());
+
+
+
 
 
                 setDismiss(mMainDialog);
@@ -197,12 +231,12 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        mCheckBoxs[ALL_CHECK_BUTTON].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                allChecked(mCheckBoxs, mCheckBoxs[ALL_CHECK_BUTTON].isChecked());
-            }
-        });
+//        mCheckBoxs[ALL_CHECK_BUTTON].setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                allChecked(mCheckBoxs, mCheckBoxs[ALL_CHECK_BUTTON].isChecked());
+//            }
+//        });
 
         return ab.create();
     }
@@ -228,23 +262,17 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-       mem_phone = "123";
+       //mem_phone = "123";
         String mem_name = _nameText.getText().toString();
         String mem_email = _emailText.getText().toString();
         String mem_pwd = _passwordText.getText().toString();
-        String re_password = _Re_passwordText.getText().toString();
-        String mem_age = value_add_info_age.toString();
-        String mem_sex = check_sex.toString();
-        String mem_weight = a_add_info_weight.getText().toString();
-        String mem_diabetes = check_value_one.toString();
-        String mem_obesity = check_value_two.toString();
-        String mem_highblood = check_value_three.toString();
-        String mem_hyper = check_value_four.toString();
+
+
 
         //성공했으면 return "success"
         //회원가입 칸 유효성 검사후에 DB에 사용자 정보 입력
 
-        insertToDatabase(mem_name,mem_email,mem_pwd,mem_age,mem_sex,mem_weight,mem_diabetes,mem_obesity,mem_highblood,mem_hyper);
+        insertToDatabase(mem_name, mem_email, mem_pwd, mem_age, mem_sex, mem_weight, mem_diabetes, mem_obesity, mem_highblood, mem_hyper);
 
         _signupButton.setEnabled(false);
 
@@ -306,7 +334,7 @@ public class SignupActivity extends AppCompatActivity {
 
                     HttpClient httpClient = new DefaultHttpClient();
                     HttpPost httpPost = new HttpPost(
-                            "http://14.63.213.212/signup");
+                            "http://14.63.213.212:55/signup");
                     Log.d("qwerqwerq", "insert"+paramUsername);
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                     Log.d("123333", "insert" + paramPassword);
@@ -335,8 +363,16 @@ public class SignupActivity extends AppCompatActivity {
             }
         }
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
-        Log.d("qwerqwerq", "insert"+mem_name);
-        sendPostReqAsyncTask.execute(mem_name, mem_email, mem_pwd,mem_age,mem_sex,mem_weight,mem_diabetes,mem_obesity,mem_highblood,mem_hyper);
+        Log.d("qwerqwerq", "insert"+mem_age);
+        Log.d("성별", mem_sex+123) ;
+        Log.d("몸무게",mem_weight);
+        Log.d("당뇨",mem_diabetes);
+        Log.d("비만", mem_obesity);
+        Log.d("고혈압",mem_highblood);
+        Log.d("고지혈증", mem_hyper);
+
+        sendPostReqAsyncTask.execute(mem_name, mem_email, mem_pwd, mem_age, mem_sex, mem_weight, mem_diabetes, mem_obesity, mem_highblood, mem_hyper);
+        Log.d("전달값2222 ", mem_name+mem_email+mem_pwd+ mem_age+ mem_sex+ mem_weight+ mem_diabetes+ mem_obesity+ mem_highblood+ mem_hyper);
         Log.d(TAG, "insert complete");
 
 

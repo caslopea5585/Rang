@@ -76,6 +76,28 @@
             android:id="@+id/food_calbo"
             android:layout_toRightOf="@+id/textView10"
             android:layout_alignBottom="@+id/textView10" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/calbo_image"
+            android:layout_toRightOf="@+id/food_calbo"
+            android:layout_alignBottom="@+id/food_calbo"
+
+            android:layout_marginLeft="25dp" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/calbo_progressbar"
+            android:progressDrawable="@layout/progressbar_custom"
+            android:layout_toRightOf="@+id/calbo_image"
+            android:layout_alignBottom="@+id/calbo_image"
+            android:layout_marginLeft="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -106,6 +128,26 @@
             android:layout_toRightOf="@+id/textView14"
             android:layout_alignBottom="@+id/textView14" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fat_image"
+            android:layout_toRightOf="@+id/food_fat"
+            android:layout_alignBottom="@+id/food_fat"
+            android:layout_marginLeft="25dp" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fat_progressbar"
+            android:progressDrawable="@layout/progressbar_custom"
+            android:layout_toRightOf="@+id/fat_image"
+            android:layout_alignBottom="@+id/fat_image"
+            android:layout_marginLeft="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -135,6 +177,26 @@
             android:id="@+id/food_protein"
             android:layout_toRightOf="@+id/textView16"
             android:layout_alignBottom="@+id/textView16" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/protein_image"
+            android:layout_toRightOf="@+id/food_protein"
+            android:layout_alignBottom="@+id/food_protein"
+            android:layout_marginLeft="25dp" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/protein_progressbar"
+            android:layout_toRightOf="@+id/protein_image"
+            android:progressDrawable="@layout/progressbar_custom"
+            android:layout_alignBottom="@+id/protein_image"
+            android:layout_marginLeft="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -164,6 +226,26 @@
             android:id="@+id/food_na"
             android:layout_toRightOf="@+id/textView18"
             android:layout_alignBottom="@+id/textView18" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/na_image"
+            android:layout_alignBottom="@+id/food_na"
+            android:layout_toRightOf="@+id/food_na"
+            android:layout_marginLeft="25dp" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/na_progressbar"
+            android:layout_toRightOf="@+id/na_image"
+            android:progressDrawable="@layout/progressbar_custom"
+            android:layout_alignBottom="@+id/na_image"
+            android:layout_marginLeft="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -193,6 +275,26 @@
             android:id="@+id/food_col"
             android:layout_toRightOf="@+id/textView20"
             android:layout_alignBottom="@+id/textView20" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/col_image"
+            android:layout_toRightOf="@+id/food_col"
+            android:layout_alignBottom="@+id/food_col"
+            android:layout_marginLeft="25dp" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/col_progressbar"
+            android:layout_toRightOf="@+id/col_image"
+            android:progressDrawable="@layout/progressbar_custom"
+            android:layout_alignBottom="@+id/col_image"
+            android:layout_marginLeft="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -221,6 +323,27 @@
             android:id="@+id/food_energy"
             android:layout_toRightOf="@+id/textView22"
             android:layout_alignBottom="@+id/textView22" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/energy_image"
+            android:layout_toRightOf="@+id/food_energy"
+            android:layout_alignBottom="@+id/food_energy"
+            android:layout_marginLeft="25dp" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/energ_progressbar"
+            android:layout_toRightOf="@+id/energy_image"
+            android:progressDrawable="@layout/progressbar_custom"
+            android:layout_alignBottom="@+id/energy_image"
+            android:layout_marginLeft="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -249,6 +372,91 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="구매하기"
+            android:id="@+id/product_buy"
+            android:layout_alignTop="@+id/re_barcode_search"
+            android:layout_toLeftOf="@+id/Barcode_to_Main"
+            android:layout_toStartOf="@+id/Barcode_to_Main" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:textColor="#FF2222"
+            android:id="@+id/max_calbo"
+            android:layout_marginTop="149dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/max_fat"
+            android:textColor="#FF2222"
+            android:layout_below="@+id/max_calbo"
+            android:layout_alignRight="@+id/max_calbo"
+            android:layout_alignEnd="@+id/max_calbo"
+            android:layout_marginTop="14dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:textColor="#FF2222"
+            android:id="@+id/max_protein"
+            android:layout_below="@+id/max_fat"
+            android:layout_alignRight="@+id/max_fat"
+            android:layout_alignEnd="@+id/max_fat"
+            android:layout_marginTop="18dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/max_na"
+            android:textColor="#FF2222"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/max_protein"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/max_chol"
+            android:layout_marginTop="15dp"
+            android:gravity="right"
+            android:textColor="#FF2222"
+            android:layout_below="@+id/max_na"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/max_energy"
+            android:layout_marginTop="15dp"
+            android:gravity="right"
+            android:textColor="#FF2222"
+            android:layout_below="@+id/max_chol"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
     </RelativeLayout>
 
 </RelativeLayout>

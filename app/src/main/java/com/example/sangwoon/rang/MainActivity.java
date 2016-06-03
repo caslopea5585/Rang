@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity  {
 
                     HttpClient httpClient = new DefaultHttpClient();
                     HttpPost httpPost = new HttpPost(
-                            "http://14.63.213.212/main");
+                            "http://14.63.213.212:55/main");
                     Log.d("22qwerqwerq", "insert" + paramUsername);
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                     HttpResponse response = null;
@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity  {
     }
     public String[][] jsonParserList(String pRecvServerPage) {
 
-        //Log.i("QQQQ", pRecvServerPage);
+        Log.i("QQQQ", pRecvServerPage);
         Thread mThread = new Thread();
         Log.d("넘어오는 값", pRecvServerPage);
         try {
@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity  {
 
             // 받아온 pRecvServerPage를 분석하는 부분
 
-            String[] jsonName = {"food_image", "food_barcode","food_stargrade"};
+            String[] jsonName = {"food_image", "food_barcode","food_name"};
             String[][] parseredData = new String[jArr.length()][jsonName.length];
             for (int i = 0; i < jArr.length(); i++) {
                 json = jArr.getJSONObject(i);
@@ -281,13 +281,13 @@ public class MainActivity extends AppCompatActivity  {
                 }
             }
 
-            float left_rating_value = Float.valueOf(parseredData[0][2]);
-            float center_rating_value = Float.valueOf(parseredData[1][2]);
-            float right_rating_value = Float.valueOf(parseredData[2][2]);
+            //float left_rating_value = Float.valueOf(parseredData[0][2]);
+            //float center_rating_value = Float.valueOf(parseredData[1][2]);
+            //float right_rating_value = Float.valueOf(parseredData[2][2]);
 
-            left_rating.setRating(left_rating_value);
-            center_rating.setRating(center_rating_value);
-            right_rating.setRating(right_rating_value);
+            //left_rating.setRating(left_rating_value);
+            //center_rating.setRating(center_rating_value);
+            //right_rating.setRating(right_rating_value);
 
 
             //for(int image_view=0;image_view<3;image_view++){
@@ -372,7 +372,9 @@ public class MainActivity extends AppCompatActivity  {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
                 switch (position){
+
                     case 0:
                         Intent search_history = new Intent(MainActivity.this,Search_History.class);
                         startActivity(search_history);
@@ -389,6 +391,8 @@ public class MainActivity extends AppCompatActivity  {
                         Intent User_info = new Intent(MainActivity.this, User_info.class);
                         startActivity(User_info);
                         break;
+
+
 
 
 

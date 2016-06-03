@@ -163,19 +163,14 @@ public class User_info extends AppCompatActivity {
         Log.d("넘어오는 값", pRecvServerPage);
         try {
 
-
             JSONObject json = new JSONObject(pRecvServerPage);
-            Log.d("미친놈",pRecvServerPage);
             // 서버로 부터 넘어온 키값을 넣어줌
             JSONArray jArr = json.getJSONArray("member");
 
 
             // 받아온 pRecvServerPage를 분석하는 부분
 
-
-            //이름, 나이 , 몸무게, 성별, 당뇨, 비만, 고혈압, 고지혈증
-
-            String[] jsonName = {"mem_name", "mem_age","mem_weight","mem_sex","mem_diabetes","mem_obesity","mem_highblood","mem_hyper"};
+            String[] jsonName = {"mem_name","mem_age","mem_weight","mem_sex","mem_diabetes","mem_obesity","mem_highblood","mem_hyper"};
             String[][] parseredData = new String[jArr.length()][jsonName.length];
             for (int i = 0; i < jArr.length(); i++) {
                 json = jArr.getJSONObject(i);
@@ -184,6 +179,12 @@ public class User_info extends AppCompatActivity {
                     parseredData[i][j] = json.getString(jsonName[j]);
                 }
             }
+
+            // 받아온 pRecvServerPage를 분석하는 부분
+
+
+            //이름, 나이 , 몸무게, 성별, 당뇨, 비만, 고혈압, 고지혈증
+
 
             user_id.setText(parseredData[0][0]);
 
