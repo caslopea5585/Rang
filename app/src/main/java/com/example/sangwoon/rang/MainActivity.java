@@ -50,6 +50,7 @@ import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.client.ClientProtocolException;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
+import cz.msebera.android.httpclient.client.methods.HttpGet;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
@@ -71,10 +72,13 @@ public class MainActivity extends AppCompatActivity  {
     TextView user_id;
     String from_login_email;
     String[][] parsedData={};
+    String[][] search_list={};
+    String category_big="",category_middle="",category_small="";
     RatingBar left_rating,center_rating,right_rating;
     Bitmap bmimg1,bmimg2,bmimg3;
     ImageButton left_product,center_product,right_product;
-    String user_mail;
+    String user_mail, search_text_array;
+    ArrayList<String>arrayList1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -89,10 +93,10 @@ public class MainActivity extends AppCompatActivity  {
         right_product = (ImageButton)findViewById(R.id.right_product_image);
 
 
-        left_rating = (RatingBar)findViewById(R.id.ratingbar1);
-        center_rating = (RatingBar)findViewById(R.id.ratingbar2);
-        right_rating = (RatingBar)findViewById(R.id.ratingbar3);
 
+        category_big();
+        category_middle();
+        category_small();
 
 
         //로그인 성공한 이메일주소 받아오기
@@ -100,15 +104,30 @@ public class MainActivity extends AppCompatActivity  {
         from_login_email = from_login.getStringExtra("login_email");
         insertToDatabase(from_login_email);
 
+
+        Intent search_list_value = getIntent();
+        search_text_array = search_list_value.getStringExtra("search_list_value");
+
+        //search_text_array = 데이터 다 가져온 그냥 평문
+
+        //상품명 검색어 리스트 뷰에 넣기
+        search_list = search_array(search_text_array);
+
+        //Log.d("배열값",String.valueOf(search_list[0][0]));
+
         mListView = (ListView) findViewById(R.id.listView);
 
         mAdapter = new ListViewAdapter(this);
         mListView.setAdapter(mAdapter);
 
-        String[] optionLavala = getResources().getStringArray(
-                R.array.dataArray1);
+        arrayList1 = new ArrayList<String>();
+
+         for(int q=0;q<search_list.length;q++){
+             arrayList1.add(String.valueOf(search_list[q][0]));
+         }
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, optionLavala);
+                android.R.layout.simple_dropdown_item_1line, arrayList1);
         AutoCompleteTextView textView = (AutoCompleteTextView) findViewById
                 (R.id.edit_message);
         textView.setAdapter(adapter);
@@ -141,6 +160,7 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
                 Intent compare_activity = new Intent(MainActivity.this, CompareActivity.class);
+                compare_activity.putExtra("mem_email",user_mail);
                 startActivity(compare_activity);
             }
         });
@@ -160,10 +180,223 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view){
                 Intent Detail_search2 = new Intent(MainActivity.this,Detail_Search.class);
-                startActivity(Detail_search2);
+                Log.d("대분류 값 제대로?",  category_big);
+                Detail_search2.putExtra("category_big", category_big);
+                Log.d("중뷴류값은?", category_middle);
+                Detail_search2.putExtra("category_middle", category_middle);
+                Log.d("소분류값은?", category_small);
+                Detail_search2.putExtra("category_small",category_small);
+                startActivityForResult(Detail_search2, 0);
+
             }
         });
     }
+    public void category_small() {
+        class SendPostReqAsyncTask extends AsyncTask<Void, Void, String> {
+            @Override
+            protected String doInBackground(Void...Void) {
+
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+
+
+                String url = "http://14.63.213.212:55/food/smalllist";
+                String result ="";
+                BufferedReader inStream = null;
+
+                try {
+
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpGet httpRequest = new HttpGet(url);
+                    HttpResponse response = httpClient.execute(httpRequest);
+                    inStream = new BufferedReader(
+                            new InputStreamReader(
+                                    response.getEntity().getContent()));
+
+                    StringBuffer buffer = new StringBuffer("");
+                    String line = "";
+                    String NL = System.getProperty("line.separator");
+                    while ((line = inStream.readLine()) != null) {
+                        buffer.append(line + NL);
+                    }
+                    inStream.close();
+
+                    result = buffer.toString();
+
+
+
+                    return result;
+
+
+                } catch (ClientProtocolException e) {
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (inStream != null) {
+                    try {
+                        inStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                Log.d("전달값", result);
+                category_small = result;
+                Log.d("small",category_small);
+                // parsedData = jsonParserList(result);
+                super.onPostExecute(result);
+
+            }
+        }
+        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
+
+        sendPostReqAsyncTask.execute();
+
+    }
+
+
+    public void category_middle() {
+        class SendPostReqAsyncTask extends AsyncTask<Void, Void, String> {
+            @Override
+            protected String doInBackground(Void...Void) {
+
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+
+
+                String url = "http://14.63.213.212:55/food/middlegoods";
+                String result ="";
+                BufferedReader inStream = null;
+
+                try {
+
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpGet httpRequest = new HttpGet(url);
+                    HttpResponse response = httpClient.execute(httpRequest);
+                    inStream = new BufferedReader(
+                            new InputStreamReader(
+                                    response.getEntity().getContent()));
+
+                    StringBuffer buffer = new StringBuffer("");
+                    String line = "";
+                    String NL = System.getProperty("line.separator");
+                    while ((line = inStream.readLine()) != null) {
+                        buffer.append(line + NL);
+                    }
+                    inStream.close();
+
+                    result = buffer.toString();
+
+
+
+                    return result;
+
+
+                } catch (ClientProtocolException e) {
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (inStream != null) {
+                    try {
+                        inStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                Log.d("전달값", result);
+                category_middle = result;
+                Log.d("middleee",category_middle);
+                // parsedData = jsonParserList(result);
+                super.onPostExecute(result);
+
+            }
+        }
+        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
+
+        sendPostReqAsyncTask.execute();
+
+    }
+    public void category_big() {
+        class SendPostReqAsyncTask extends AsyncTask<Void, Void, String> {
+            @Override
+            protected String doInBackground(Void...Void) {
+
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+
+
+                String url = "http://14.63.213.212:55/food/biglist";
+                String result ="";
+                BufferedReader inStream = null;
+
+                try {
+
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpGet httpRequest = new HttpGet(url);
+                    HttpResponse response = httpClient.execute(httpRequest);
+                    inStream = new BufferedReader(
+                            new InputStreamReader(
+                                    response.getEntity().getContent()));
+
+                    StringBuffer buffer = new StringBuffer("");
+                    String line = "";
+                    String NL = System.getProperty("line.separator");
+                    while ((line = inStream.readLine()) != null) {
+                        buffer.append(line + NL);
+                    }
+                    inStream.close();
+
+                    result = buffer.toString();
+
+
+
+                    return result;
+
+
+                } catch (ClientProtocolException e) {
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (inStream != null) {
+                    try {
+                        inStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                Log.d("전달값 대분류", result);
+                category_big = result;
+               // parsedData = jsonParserList(result);
+                super.onPostExecute(result);
+
+            }
+        }
+        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
+
+        sendPostReqAsyncTask.execute();
+
+    }
+
+
+
+
 
     //재욱이 소스
 
@@ -191,6 +424,46 @@ public class MainActivity extends AppCompatActivity  {
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
 
+
+    }
+    public String[][] search_array(String pRecvServerPage) {
+
+        Log.i("QQQQ", pRecvServerPage);
+        Thread mThread = new Thread();
+        Log.d("넘어오는 값2222", pRecvServerPage);
+        try {
+
+
+            JSONObject json = new JSONObject(pRecvServerPage);
+            // 서버로 부터 넘어온 키값을 넣어줌
+            JSONArray jArr = json.getJSONArray("result");
+
+
+            // 받아온 pRecvServerPage를 분석하는 부분
+
+            String[] jsonName = {"food_name"};
+            String[][] search_list = new String[jArr.length()][jsonName.length];
+            for (int i = 0; i < jArr.length(); i++) {
+                json = jArr.getJSONObject(i);
+
+                for(int j = 0; j < jsonName.length; j++) {
+                    search_list[i][j] = json.getString(jsonName[j]);
+                }
+            }
+
+
+
+            Log.d("test", String.valueOf(search_list[0][0]) + String.valueOf(search_list[1][0]));
+           // arrayList1.add("가나다");
+            return search_list;
+
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+
+            return null;
+
+        }
 
     }
     public void insertToDatabase(String mem_name) {
@@ -281,13 +554,7 @@ public class MainActivity extends AppCompatActivity  {
                 }
             }
 
-            //float left_rating_value = Float.valueOf(parseredData[0][2]);
-            //float center_rating_value = Float.valueOf(parseredData[1][2]);
-            //float right_rating_value = Float.valueOf(parseredData[2][2]);
 
-            //left_rating.setRating(left_rating_value);
-            //center_rating.setRating(center_rating_value);
-            //right_rating.setRating(right_rating_value);
 
 
             //for(int image_view=0;image_view<3;image_view++){

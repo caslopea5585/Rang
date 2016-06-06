@@ -241,6 +241,12 @@ public class BarcodeActivity extends AppCompatActivity {
             String day_food_energy = a.getString("day_energy");
 
 
+            int diabetes = Integer.parseInt(a.getString("mem_diabetes"));
+            int obesity = Integer.parseInt(a.getString("mem_obesity"));
+            int highblood = Integer.parseInt(a.getString("mem_highblood"));
+            int hyper = Integer.parseInt(a.getString("mem_hyper"));
+            int weight = Integer.parseInt(a.getString("mem_weight"));
+
             int day_calbo  = Integer.parseInt(day_food_calbo);
             int day_fat = Integer.parseInt(day_food_fat);
             int day_protein = Integer.parseInt(day_food_protein);
@@ -248,25 +254,26 @@ public class BarcodeActivity extends AppCompatActivity {
             int day_chol = Integer.parseInt(day_food_calbo);
             int day_energy = Integer.parseInt(day_food_energy);
 
-//            if(diabetes==1){
-//                day_energy = weight * 35;
-//                day_calbo = day_calbo * 0.8;
-//                day_na = day_na -300;
-//
-//
-//            }
-//            if(obesity==1){
-//                day_energy = day_energy - 500;
-//
-//            }
-//            if(highblood==1){
-//                day_na = day_na/3;
-//            }
-//            if(highhyper==1){
-//                day_calbo = day_calbo *0.6;
-//                day_fat = (day_fat/3)*2;
-//                day_protein = day_protein /2;
-//            }
+
+            if(diabetes==1){
+                day_energy = weight * 35;
+                day_calbo = day_calbo/10 * 8;
+                day_na = day_na -300;
+
+
+            }
+            if(obesity==1){
+                day_energy = day_energy - 500;
+
+            }
+            if(highblood==1){
+                day_na = day_na/3;
+            }
+            if(hyper==1){
+                day_calbo = day_calbo/10 *6;
+                day_fat = (day_fat/3)*2;
+                day_protein = day_protein /2;
+            }
 
 
 
@@ -274,26 +281,26 @@ public class BarcodeActivity extends AppCompatActivity {
             food_name = a.getString("food_name");
             food_name_getvalue.setText(a.getString("food_name"));
             food_calbo_getvalue.setText(a.getString("food_calbo")+"g");
-            food_fat_getvalue.setText(a.getString("food_fat")+"g");
-            food_protein_getvalue.setText(a.getString("food_protein")+"g");
-            food_na_getvalue.setText(a.getString("food_na")+"g");
+            food_fat_getvalue.setText(a.getString("food_fat") + "g");
+            food_protein_getvalue.setText(a.getString("food_protein") + "g");
+            food_na_getvalue.setText(a.getString("food_na") + "g");
             food_col_getvalue.setText(a.getString("food_chol") + "g");
             food_energy_getvalue.setText(a.getString("food_energy") + "g");
 
 
 
             fat.setMax(day_fat);
-            max_fat.setText(day_fat);
+            max_fat.setText(String.valueOf(day_fat));
             protein.setMax(day_protein);
-            max_protein.setText(day_protein);
+            max_protein.setText(String.valueOf(day_protein));
             energy.setMax(day_energy);
-            max_energy.setText(day_energy);
+            max_energy.setText(String.valueOf(day_energy));
             calbo.setMax(day_calbo);
-            max_calbo.setText(day_calbo);
+            max_calbo.setText(String.valueOf(day_calbo));
             na.setMax(day_na);
-            max_na.setText(day_na);
+            max_na.setText(String.valueOf(day_na));
             col.setMax(day_chol);
-            max_chol.setText(day_chol);
+            max_chol.setText(String.valueOf(day_chol));
 
 
             int value_fat = Integer.parseInt(a.getString("food_fat"));

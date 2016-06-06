@@ -43,7 +43,11 @@
         <activity android:name=".nutrient_compare" />
         <activity android:name=".nutrient_adapter" />
         <activity android:name=".text_compare_Activity" />
-        <activity android:name=".DisplayMessageActivity"></activity>
+        <activity android:name=".DisplayMessageActivity" />
+        <activity
+            android:name=".Spinner2_Adapter"
+            android:label="@string/title_activity_spinner2__adapter"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

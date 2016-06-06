@@ -49,7 +49,9 @@ public class CompareActivity extends AppCompatActivity {
     TextView left_Product_name,right_Product_name;
     ImageView left_product_image, right_product_image;
     ImageView product_image;
+    String mem_email;
     Bitmap bmimg;
+    ImageView one,two,three,four,five,six;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,9 @@ public class CompareActivity extends AppCompatActivity {
 
         left_product_image = (ImageView)findViewById(R.id.left_image);
         right_product_image = (ImageView)findViewById(R.id.right_image);
+
+        Intent from_login = getIntent();
+        mem_email = from_login.getStringExtra("mem_email");
 
 
         Left_value1 = (TextView)findViewById(R.id.Left_value1);
@@ -77,136 +82,48 @@ public class CompareActivity extends AppCompatActivity {
 
 
 
-        Left_value1.setText("2");
-        Left_value2.setText("2");
-        Left_value3.setText("2");
-        Left_value4.setText("2");
-        Left_value5.setText("2");
-        Left_value6.setText("2");
+        Left_value1.setText("");
+        Left_value2.setText("");
+        Left_value3.setText("");
+        Left_value4.setText("");
+        Left_value5.setText("");
+        Left_value6.setText("");
 
-        Right_value1.setText("1");
-        Right_value2.setText("2");
-        Right_value3.setText("3");
-        Right_value4.setText("2");
-        Right_value5.setText("3");
-        Right_value6.setText("3");
+        Right_value1.setText("");
+        Right_value2.setText("");
+        Right_value3.setText("");
+        Right_value4.setText("");
+        Right_value5.setText("");
+        Right_value6.setText("");
 
-
-        left_value_1 = Integer.parseInt(Left_value1.getText().toString());
-        left_value_2 = Integer.parseInt(Left_value2.getText().toString());
-        left_value_3 = Integer.parseInt(Left_value3.getText().toString());
-        left_value_4 = Integer.parseInt(Left_value4.getText().toString());
-        left_value_5 = Integer.parseInt(Left_value5.getText().toString());
-        left_value_6 = Integer.parseInt(Left_value6.getText().toString());
-
-
-
-        right_value_1 = Integer.parseInt(Right_value1.getText().toString());
-        right_value_2 = Integer.parseInt(Right_value2.getText().toString());
-        right_value_3 = Integer.parseInt(Right_value3.getText().toString());
-        right_value_4 = Integer.parseInt(Right_value4.getText().toString());
-        right_value_5 = Integer.parseInt(Right_value5.getText().toString());
-        right_value_6 = Integer.parseInt(Right_value6.getText().toString());
-
-
-        ImageView[] arrow = new ImageView[6] ;
-        arrow[0] = (ImageView)findViewById(R.id.value01_arrow);
-        arrow[1] = (ImageView)findViewById(R.id.value02_arrow);
-        arrow[2] = (ImageView)findViewById(R.id.value03_arrow);
-        arrow[3] = (ImageView)findViewById(R.id.value04_arrow);
-        arrow[4] = (ImageView)findViewById(R.id.value05_arrow);
-        arrow[5] = (ImageView)findViewById(R.id.value06_arrow);
-
-
-//        if(left_value_1 !=0 && right_value_1 !=0){
-//            if(left_value_1==right_value_1){
-//                arrow[0].setImageResource(R.drawable.equal);
-//                //같은 모양
-//            }
-//            else if(left_value_1 > right_value_1){
-//                arrow[0].setImageResource(R.drawable.up_arrow);
-//                //화살표 윗모양
-//            }
-//            else {
-//                arrow[0].setImageResource(R.drawable.down_arrow);
-//                //화살표 아래모양
-//            }
-//        }
 //
-//        if(left_value_2 !=0 && right_value_2 !=0){
-//            if(left_value_2==right_value_2){
-//                arrow[1].setImageResource(R.drawable.equal);
-//                //같은 모양
-//            }
-//            else if(left_value_2 > right_value_2){
-//                arrow[1].setImageResource(R.drawable.up_arrow);
-//                //화살표 윗모양
-//            }
-//            else {
-//                arrow[1].setImageResource(R.drawable.down_arrow);
-//                //화살표 아래모양
-//            }
-//        }
+//        left_value_1 = Integer.parseInt(Left_value1.getText().toString());
+//        left_value_2 = Integer.parseInt(Left_value2.getText().toString());
+//        left_value_3 = Integer.parseInt(Left_value3.getText().toString());
+//        left_value_4 = Integer.parseInt(Left_value4.getText().toString());
+//        left_value_5 = Integer.parseInt(Left_value5.getText().toString());
+//        left_value_6 = Integer.parseInt(Left_value6.getText().toString());
 //
-//        if(left_value_3 !=0 && right_value_3 !=0){
-//            if(left_value_3==right_value_3){
-//                arrow[2].setImageResource(R.drawable.equal);
-//                //같은 모양
-//            }
-//            else if(left_value_3 > right_value_3){
-//                arrow[2].setImageResource(R.drawable.up_arrow);
-//                //화살표 윗모양
-//            }
-//            else {
-//                arrow[2].setImageResource(R.drawable.down_arrow);
-//                //화살표 아래모양
-//            }
-//        }
 //
-//        if(left_value_4 !=0 && right_value_4 !=0){
-//            if(left_value_4==right_value_4){
-//                 arrow[3].setImageResource(R.drawable.equal);
-//                //같은 모양
-//            }
-//            else if(left_value_4 > right_value_4){
-//                arrow[3].setImageResource(R.drawable.up_arrow);
-//                //화살표 윗모양
-//            }
-//            else {
-//                arrow[3].setImageResource(R.drawable.down_arrow);
-//                //화살표 아래모양
-//            }
-//        }
 //
-//        if(left_value_5 !=0 && right_value_5 !=0){
-//            if(left_value_5==right_value_5){
-//                arrow[4].setImageResource(R.drawable.equal);
-//                //같은 모양
-//            }
-//            else if(left_value_5 > right_value_5){
-//                arrow[4].setImageResource(R.drawable.up_arrow);
-//                //화살표 윗모양
-//            }
-//            else {
-//                arrow[4].setImageResource(R.drawable.down_arrow);
-//                //화살표 아래모양
-//            }
-//        }
-//
-//        if(left_value_6 !=0 && right_value_6 !=0){
-//            if(left_value_6==right_value_6){
-//                arrow[5].setImageResource(R.drawable.equal);
-//                //같은 모양
-//            }
-//            else if(left_value_6 > right_value_6){
-//                arrow[5].setImageResource(R.drawable.up_arrow);
-//                //화살표 윗모양
-//            }
-//            else {
-//                arrow[5].setImageResource(R.drawable.down_arrow);
-//                //화살표 아래모양
-//            }
-//        }
+//        right_value_1 = Integer.parseInt(Right_value1.getText().toString());
+//        right_value_2 = Integer.parseInt(Right_value2.getText().toString());
+//        right_value_3 = Integer.parseInt(Right_value3.getText().toString());
+//        right_value_4 = Integer.parseInt(Right_value4.getText().toString());
+//        right_value_5 = Integer.parseInt(Right_value5.getText().toString());
+//        right_value_6 = Integer.parseInt(Right_value6.getText().toString());
+
+
+//        ImageView[] arrow = new ImageView[6] ;
+//        arrow[0] = (ImageView)findViewById(R.id.value01_arrow);
+//        arrow[1] = (ImageView)findViewById(R.id.value02_arrow);
+//        arrow[2] = (ImageView)findViewById(R.id.value03_arrow);
+//        arrow[3] = (ImageView)findViewById(R.id.value04_arrow);
+//        arrow[4] = (ImageView)findViewById(R.id.value05_arrow);
+//        arrow[5] = (ImageView)findViewById(R.id.value06_arrow);
+
+
+
 
 
         Button left_product = (Button)findViewById(R.id.left_product_barcode);
@@ -230,6 +147,11 @@ public class CompareActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+
+
         value_compare();
     }
 
@@ -248,7 +170,7 @@ public class CompareActivity extends AppCompatActivity {
         if(count=="1"){
             left_Product_name = (TextView) findViewById(R.id.left_productName);               //바코드 넘버 표출
             barcode_num = result.getContents();
-            insertToDatabase(result.getContents(),count);
+            insertToDatabase(result.getContents(),count,mem_email);
 
 
             //left_Product_name.setText(result.getContents());
@@ -256,7 +178,7 @@ public class CompareActivity extends AppCompatActivity {
         else if(count=="2") {
             right_Product_name = (TextView) findViewById(R.id.right_productName);               //바코드 넘버 표출
             barcode_num = result.getContents();
-            insertToDatabase(result.getContents(),count);
+            insertToDatabase(result.getContents(),count,mem_email);
 
             //right_Product_name.setText(result.getContents());
         }
@@ -266,111 +188,24 @@ public class CompareActivity extends AppCompatActivity {
         ImageView arrow = new ImageView(this);
 
 
-        if(left_value_1 !=0 && right_value_1 !=0){
-                if(left_value_1==right_value_1){
-                    arrow.setImageResource(R.drawable.equal);
-                    //같은 모양
-                }
-                else if(left_value_1 > right_value_1){
-                    arrow.setImageResource(R.drawable.up_arrow);
-                    //화살표 윗모양
-                }
-                else {
-                    arrow.setImageResource(R.drawable.down_arrow);
-                    //화살표 아래모양
-                }
-            }
-
-        if(left_value_2 !=0 && right_value_2 !=0){
-            if(left_value_2==right_value_2){
-                arrow.setImageResource(R.drawable.equal);
-                //같은 모양
-            }
-            else if(left_value_2 > right_value_2){
-                arrow.setImageResource(R.drawable.up_arrow);
-                //화살표 윗모양
-            }
-            else {
-                arrow.setImageResource(R.drawable.down_arrow);
-                //화살표 아래모양
-            }
-        }
-
-        if(left_value_3 !=0 && right_value_3 !=0){
-            if(left_value_3==right_value_3){
-                arrow.setImageResource(R.drawable.equal);
-                //같은 모양
-            }
-            else if(left_value_3 > right_value_3){
-                arrow.setImageResource(R.drawable.up_arrow);
-                //화살표 윗모양
-            }
-            else {
-                arrow.setImageResource(R.drawable.down_arrow);
-                //화살표 아래모양
-            }
-        }
-
-        if(left_value_4 !=0 && right_value_4 !=0){
-            if(left_value_4==right_value_4){
-                arrow.setImageResource(R.drawable.equal);
-                //같은 모양
-            }
-            else if(left_value_4 > right_value_4){
-                arrow.setImageResource(R.drawable.up_arrow);
-                //화살표 윗모양
-            }
-            else {
-                arrow.setImageResource(R.drawable.down_arrow);
-                //화살표 아래모양
-            }
-        }
-
-        if(left_value_5 !=0 && right_value_5 !=0){
-            if(left_value_5==right_value_5){
-                arrow.setImageResource(R.drawable.equal);
-                //같은 모양
-            }
-            else if(left_value_5 > right_value_5){
-                arrow.setImageResource(R.drawable.up_arrow);
-                //화살표 윗모양
-            }
-            else {
-                arrow.setImageResource(R.drawable.down_arrow);
-                //화살표 아래모양
-            }
-        }
-
-        if(left_value_6 !=0 && right_value_6 !=0){
-            if(left_value_6==right_value_6){
-                arrow.setImageResource(R.drawable.equal);
-                //같은 모양
-            }
-            else if(left_value_6 > right_value_6){
-                arrow.setImageResource(R.drawable.up_arrow);
-                //화살표 윗모양
-            }
-            else {
-                arrow.setImageResource(R.drawable.down_arrow);
-                //화살표 아래모양
-            }
-        }
 
 
 
 
     }
-    public void insertToDatabase(String mem_name,String count) {
+    public void insertToDatabase(String mem_name,String count, final String test) {
          String value_count = count;
 
         class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
             @Override
             protected String doInBackground(String... params) {
                 String paramUsername = barcode_num;
+                String email = mem_email;
+
 
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                 nameValuePairs.add(new BasicNameValuePair("food_barcode", paramUsername));
-
+                nameValuePairs.add(new BasicNameValuePair("mem_email", email));
                 try {
 
                     HttpClient httpClient = new DefaultHttpClient();
@@ -415,55 +250,176 @@ public class CompareActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(String result) {
+                Log.d("넘기는값1222", result);
                 parsedData = jsonParserList(result);
+                value_compare();
                 super.onPostExecute(result);
 
             }
         }
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
 
-        sendPostReqAsyncTask.execute(barcode_num);
+        sendPostReqAsyncTask.execute(barcode_num,mem_email);
+        value_compare();
 
     }
     public String[][] jsonParserList(String pRecvServerPage) {
 
         //Log.i("QQQQ", pRecvServerPage);
-
+        Log.d("넘기는값1222", pRecvServerPage);
         try {
             //value1 -  애너지, 탄수화물 , 지방, 단백질, 나트륨, 콜레스트롤
             JSONObject json = new JSONObject(pRecvServerPage);
             JSONObject a = json.getJSONObject("result");
 
-
-            //String count = a.getString("count");
-            //String food_calbo = a.getString("food_calbo");
-            //String food_stargrade = a.getString("food_stargrade");
             String food_image_url = a.getString("food_image");
             //Log.d("count");
             Log.d("qwe",count);
             if(count=="1"){
                 left_Product_name.setText(a.getString("food_name"));
                 Left_value1.setText(a.getString("food_energy")+"g");
+                left_value_1 = Integer.parseInt(a.getString("food_energy"));
+
                 Left_value2.setText(a.getString("food_calbo")+"g");
+                left_value_2 = Integer.parseInt(a.getString("food_calbo"));
+
                 Left_value3.setText(a.getString("food_fat")+"g");
+                left_value_3 = Integer.parseInt(a.getString("food_fat"));
+
                 Left_value4.setText(a.getString("food_protein")+"g");
+                left_value_4 = Integer.parseInt(a.getString("food_protein"));
+
                 Left_value5.setText(a.getString("food_na")+"g");
+                left_value_5 = Integer.parseInt(a.getString("food_na"));
+
                 Left_value6.setText(a.getString("food_chol")+"g");
+                left_value_6 = Integer.parseInt(a.getString("food_chol"));
 
 
             }
             else if(count=="2"){
                 right_Product_name.setText(a.getString("food_name"));
                 Right_value1.setText(a.getString("food_energy") + "g");
+                right_value_1 = Integer.parseInt(a.getString("food_energy"));
+
                 Right_value2.setText(a.getString("food_calbo")+"g");
+                right_value_2 = Integer.parseInt(a.getString("food_calbo"));
+
                 Right_value3.setText(a.getString("food_fat")+"g");
+                right_value_3 = Integer.parseInt(a.getString("food_fat"));
+
                 Right_value4.setText(a.getString("food_protein")+"g");
+                right_value_4 = Integer.parseInt(a.getString("food_protein"));
+
                 Right_value5.setText(a.getString("food_na")+"g");
+                right_value_5 = Integer.parseInt(a.getString("food_na"));
+
                 Right_value6.setText(a.getString("food_chol") + "g");
+                right_value_6 = Integer.parseInt(a.getString("food_chol"));
 
             }
 
+            one = (ImageView)findViewById(R.id.value01_arrow);
+            two = (ImageView)findViewById(R.id.value02_arrow);
+            three = (ImageView)findViewById(R.id.value03_arrow);
+            four = (ImageView)findViewById(R.id.value04_arrow);
+            five = (ImageView)findViewById(R.id.value05_arrow);
+            six = (ImageView)findViewById(R.id.value06_arrow);
 
+
+
+            if(left_value_1 !=0 && right_value_1 !=0){
+                if(left_value_1==right_value_1){
+                    one.setImageResource(R.drawable.equal);
+                    //같은 모양
+                }
+                else if(left_value_1 > right_value_1){
+                    one.setImageResource(R.drawable.up_arrow);
+                    //화살표 윗모양
+                }
+                else {
+                    one.setImageResource(R.drawable.down_arrow);
+                    //화살표 아래모양
+                }
+            }
+            if(left_value_2 !=0 && right_value_2 !=0){
+                if(left_value_2==right_value_2){
+                    two.setImageResource(R.drawable.equal);
+                    //같은 모양
+                }
+                else if(left_value_2 > right_value_2){
+                    two.setImageResource(R.drawable.up_arrow);
+                    //화살표 윗모양
+                }
+                else {
+                    two.setImageResource(R.drawable.down_arrow);
+                    //화살표 아래모양
+                }
+            }
+
+            if(left_value_3 !=0 && right_value_3 !=0){
+                if(left_value_3==right_value_3){
+                    three.setImageResource(R.drawable.equal);
+                    //같은 모양
+                }
+                else if(left_value_3 > right_value_3){
+                    three.setImageResource(R.drawable.up_arrow);
+                    //화살표 윗모양
+                }
+                else {
+                    three.setImageResource(R.drawable.down_arrow);
+                    //화살표 아래모양
+                }
+            }
+
+            if(left_value_4 !=0 && right_value_4 !=0){
+                if(left_value_4==right_value_4){
+                    four.setImageResource(R.drawable.equal);
+                    //같은 모양
+                }
+                else if(left_value_4 > right_value_4){
+                    four.setImageResource(R.drawable.up_arrow);
+                    //화살표 윗모양
+                }
+                else {
+                    four.setImageResource(R.drawable.down_arrow);
+                    //화살표 아래모양
+                }
+            }
+
+            if(left_value_5 !=0 && right_value_5 !=0){
+                if(left_value_5==right_value_5){
+                    five.setImageResource(R.drawable.equal);
+                    //같은 모양
+                }
+                else if(left_value_5 > right_value_5){
+                    five.setImageResource(R.drawable.up_arrow);
+                    //화살표 윗모양
+                }
+                else {
+                    five.setImageResource(R.drawable.down_arrow);
+                    //화살표 아래모양
+                }
+            }
+
+            if(left_value_6 !=0 && right_value_6 !=0){
+                if(left_value_6==right_value_6){
+                    six.setImageResource(R.drawable.equal);
+                    //같은 모양
+                }
+                else if(left_value_6 > right_value_6){
+                    six.setImageResource(R.drawable.up_arrow);
+                    //화살표 윗모양
+                }
+                else {
+                    six.setImageResource(R.drawable.down_arrow);
+                    //화살표 아래모양
+                }
+            }
+
+
+
+            value_compare();
             //Log.e("aaaaaaaaa", food_calbo + food_stargrade);
 
             String qwer = "";
@@ -471,7 +427,7 @@ public class CompareActivity extends AppCompatActivity {
             Log.d("dddd", qwer);
 
 
-            value_compare();
+
             String[][] parseredData = new String[0][0];
             new LoadImage().execute(food_image_url);
             return parseredData;
