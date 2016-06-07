@@ -68,15 +68,20 @@
                         <ImageButton
                             android:layout_width="80dp"
                             android:layout_height="100dp"
+                            android:scaleType="centerCrop"
+                            android:background="@color/white"
                             android:src="@drawable/ok"
                             android:id="@+id/left_product_image"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp" />
+                            android:layout_marginTop="10dp"
+                            android:focusable="true" />
 
                         <ImageButton
                             android:layout_width="80dp"
                             android:layout_height="100dp"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/ok"
+                            android:background="@color/white"
                             android:id="@+id/centert_product_image"
                             android:layout_marginLeft="35dp"
                             android:layout_marginTop="10dp" />
@@ -85,6 +90,8 @@
                             android:layout_width="80dp"
                             android:layout_height="100dp"
                             android:src="@drawable/ok"
+                            android:scaleType="centerCrop"
+                            android:background="@color/white"
                             android:id="@+id/right_product_image"
                             android:layout_marginLeft="35dp"
                             android:layout_marginTop="10dp" />
@@ -165,6 +172,7 @@
                         android:layout_height="50dp"
                         android:text="바코드촬영"
                         android:src="@drawable/search_barcode"
+                        android:background="@color/white"
                         android:id="@+id/barcode_button"
                         android:layout_centerVertical="true"
                         android:layout_alignParentLeft="true"
@@ -176,6 +184,7 @@
                         android:layout_width="80dp"
                         android:layout_height="50dp"
                         android:text="비교하기"
+                        android:background="@color/white"
                         android:src="@drawable/product_compare"
                         android:id="@+id/compare"
                         android:layout_centerVertical="true"
@@ -188,6 +197,7 @@
                         android:layout_width="80dp"
                         android:layout_height="50dp"
                         android:text="상세검색"
+                        android:background="@color/white"
                         android:src="@drawable/user_info"
                         android:id="@+id/detail_search"
                         android:layout_alignParentBottom="false"
@@ -235,13 +245,13 @@
                     <AutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/edit_message"
+                        android:id="@+id/search_text_value"
                         android:textColor="#000000"
                         android:completionThreshold="1"
                         android:hint="상품명"
                         android:layout_weight="8.42"
-                        android:layout_toLeftOf="@+id/button"
-                        android:layout_toStartOf="@+id/button">
+                        android:layout_toLeftOf="@+id/text_search"
+                        android:layout_toStartOf="@+id/text_search">
 
                         <requestFocus  />
                     </AutoCompleteTextView>
@@ -252,7 +262,7 @@
                         android:text="검색"
                         android:onClick="sendMessage"
                         android:layout_alignParentRight="true"
-                        android:id="@+id/button" />
+                        android:id="@+id/text_search" />
 
 
                 </RelativeLayout>

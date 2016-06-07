@@ -56,13 +56,36 @@ public class BarcodeActivity extends AppCompatActivity {
     ImageView calbo_image,fat_image,protein_image,na_image,col_image,energy_image;
     String test="sora@naver.com";
     TextView max_calbo,max_fat,max_protein,max_na,max_chol,max_energy;
+    String mem_email="",search_text="",search_boolean="0";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode);
-       new IntentIntegrator(BarcodeActivity.this).initiateScan();
 
+
+
+        Intent barcode_search = getIntent();
+        mem_email = barcode_search.getStringExtra("mem_email");
+
+
+
+
+        Intent text_search = getIntent();
+        mem_email = text_search.getStringExtra("mem_email");
+        search_text = text_search.getStringExtra("search_text");
+        search_boolean = text_search.getStringExtra("boolean");
+
+
+        //Log.d("블룬",search_boolean);
+        if(search_boolean.equals("1")) {
+            database_textsearch(search_text, mem_email);
+        }
+        else{
+            new IntentIntegrator(BarcodeActivity.this).initiateScan();
+
+        }
 
         calbo= (ProgressBar)findViewById(R.id.calbo_progressbar);
         fat = (ProgressBar)findViewById(R.id.fat_progressbar);
@@ -155,12 +178,81 @@ public class BarcodeActivity extends AppCompatActivity {
         });
     }
 
+
+    public void database_textsearch(String text_value,  String text_mem_email) {
+        class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+                String paramUsername = search_text;
+                String paramUsername2=mem_email;
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("search_text", paramUsername));
+                nameValuePairs.add(new BasicNameValuePair("mem_email", mem_email));
+
+                try {
+
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost(
+                            "http://14.63.213.212:55/main/search");
+                    Log.d("22qwerqwerq", "insert" + paramUsername);
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                    HttpResponse response = null;
+                    response = httpClient.execute(httpPost);
+
+                    HttpEntity entity = response.getEntity();
+
+                    //서버응답값
+
+
+                    InputStream in = (InputStream)response.getEntity().getContent();
+                    //in.reset();
+                    Log.d("661361", "456465");
+                    BufferedReader buferedReader = new BufferedReader(new InputStreamReader(in,"utf-8"));
+                    Log.d("888888", "456465");
+                    String line = null;
+                    String result = "";
+
+                    while ((line = buferedReader.readLine()) != null) {
+
+                        result += line;
+
+                    }
+                    //Log.d("wehhdfg", result + 456);
+                    // buferedReader.close();
+
+                    return result;
+
+
+                } catch (ClientProtocolException e) {
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return "success";
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                Log.d("Log",result);
+                parsedData = jsonParserList(result);
+                super.onPostExecute(result);
+
+            }
+        }
+        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
+
+        sendPostReqAsyncTask.execute(search_text,mem_email);
+
+    }
+
+
     public void insertToDatabase(String mem_name, String test) {
         class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
             @Override
             protected String doInBackground(String... params) {
                 String paramUsername = barcode_num;
-                String mem_email="sora@naver.com";
+                String test="";
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                 nameValuePairs.add(new BasicNameValuePair("food_barcode", paramUsername));
                 nameValuePairs.add(new BasicNameValuePair("mem_email", mem_email));
@@ -218,7 +310,7 @@ public class BarcodeActivity extends AppCompatActivity {
         }
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
 
-        sendPostReqAsyncTask.execute(barcode_num,"sora@naver.com");
+        sendPostReqAsyncTask.execute(barcode_num,mem_email);
 
     }
     public String[][] jsonParserList(String pRecvServerPage) {
@@ -424,7 +516,7 @@ public class BarcodeActivity extends AppCompatActivity {
 
 
             barcode_num = result.getContents();
-            insertToDatabase(barcode_num,"sora@naver.com");
+            insertToDatabase(barcode_num,mem_email);
         }
 
     }

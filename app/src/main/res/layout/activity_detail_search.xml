@@ -35,42 +35,16 @@
         android:layout_marginRight="10dp"/>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView1"
-        android:text="선택한 결과는 다음과 같습니다."
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:text="선택결과"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/aoa_image"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ca_2" />
-
-
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="218dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv01" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:id="@+id/aoa_image"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ca_2" />
 
         <Button
             android:layout_width="wrap_content"
@@ -92,9 +66,210 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="상품명"
+            android:id="@+id/textView11"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/aoa_image"
+            android:layout_toEndOf="@+id/aoa_image"
+            android:layout_marginTop="45dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="탄수화물"
+            android:id="@+id/textView12"
+            android:layout_below="@+id/textView11"
+            android:layout_toRightOf="@+id/aoa_image"
+            android:layout_toEndOf="@+id/aoa_image" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="지방"
+            android:id="@+id/textView13"
+            android:layout_below="@+id/textView12"
+            android:layout_toRightOf="@+id/aoa_image"
+            android:layout_toEndOf="@+id/aoa_image" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="단백질"
+            android:id="@+id/textView15"
+            android:layout_below="@+id/textView13"
+            android:layout_toRightOf="@+id/aoa_image"
+            android:layout_toEndOf="@+id/aoa_image" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="나트륨"
+            android:id="@+id/textView17"
+            android:layout_below="@+id/textView15"
+            android:layout_toRightOf="@+id/aoa_image"
+            android:layout_toEndOf="@+id/aoa_image" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="콜레스트롤"
+            android:id="@+id/textView19"
+            android:layout_below="@+id/textView17"
+            android:layout_toRightOf="@+id/aoa_image"
+            android:layout_toEndOf="@+id/aoa_image" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="칼로리"
+            android:id="@+id/textView21"
+            android:layout_below="@+id/textView19"
+            android:layout_toRightOf="@+id/aoa_image"
+            android:layout_toEndOf="@+id/aoa_image" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/list_name"
+            android:layout_alignBaseline="@+id/textView11"
+            android:layout_alignBottom="@+id/textView11"
+            android:layout_toRightOf="@+id/textView19"
+            android:layout_toEndOf="@+id/textView19" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/list_calbo"
+            android:layout_above="@+id/textView13"
+            android:layout_alignLeft="@+id/list_name"
+            android:layout_alignStart="@+id/list_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/list_fat"
+            android:layout_above="@+id/textView15"
+            android:layout_alignLeft="@+id/list_calbo"
+            android:layout_alignStart="@+id/list_calbo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/list_protein"
+            android:layout_below="@+id/list_fat"
+            android:layout_alignLeft="@+id/list_fat"
+            android:layout_alignStart="@+id/list_fat" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/list_na"
+            android:layout_above="@+id/textView19"
+            android:layout_alignLeft="@+id/list_protein"
+            android:layout_alignStart="@+id/list_protein" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/list_col"
+            android:layout_below="@+id/list_na"
+            android:layout_alignLeft="@+id/list_na"
+            android:layout_alignStart="@+id/list_na" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/list_energy"
+            android:layout_below="@+id/list_col"
+            android:layout_alignLeft="@+id/list_col"
+            android:layout_alignStart="@+id/list_col" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/list_day_calbo"
+            android:layout_alignBaseline="@+id/list_calbo"
+            android:layout_alignBottom="@+id/list_calbo"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/list_day_fat"
+            android:layout_below="@+id/list_day_calbo"
+            android:layout_alignLeft="@+id/list_day_calbo"
+            android:layout_alignStart="@+id/list_day_calbo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/list_day_protein"
+            android:layout_below="@+id/list_day_fat"
+            android:layout_alignLeft="@+id/list_day_fat"
+            android:layout_alignStart="@+id/list_day_fat" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/list_day_na"
+            android:layout_above="@+id/list_col"
+            android:layout_alignLeft="@+id/list_day_protein"
+            android:layout_alignStart="@+id/list_day_protein" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/list_day_col"
+            android:layout_above="@+id/list_energy"
+            android:layout_alignLeft="@+id/list_day_na"
+            android:layout_alignStart="@+id/list_day_na" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:id="@+id/list_day_energy"
+            android:layout_below="@+id/list_day_col"
+            android:layout_alignLeft="@+id/list_day_col"
+            android:layout_alignStart="@+id/list_day_col" />
+
     </RelativeLayout>
-
-
 
 
 </LinearLayout>

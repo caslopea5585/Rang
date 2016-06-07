@@ -1,8 +1,10 @@
 package com.example.sangwoon.rang;
 
+import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -10,15 +12,26 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class text_compare_Activity extends AppCompatActivity {
 
     ListView listView;
+    String mid_result_value;
+    String[][] mid_array;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_compare);
+
+
+        Intent mid_result = getIntent();
+        mid_result_value = mid_result.getStringExtra("category_middle_result");
+        mid_array(mid_result_value);
 
         findViewById(R.id.checkBox1).setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -107,6 +120,49 @@ public class text_compare_Activity extends AppCompatActivity {
 
 
     }
+
+    public String[][] mid_array(String pRecvServerPage) {
+
+        Log.i("QQQQ", pRecvServerPage);
+        Thread mThread = new Thread();
+        Log.d("넘어오는 값2222", pRecvServerPage);
+        try {
+
+
+            JSONObject json = new JSONObject(pRecvServerPage);
+            // 서버로 부터 넘어온 키값을 넣어줌
+            JSONArray jArr = json.getJSONArray("result");
+
+
+            // 받아온 pRecvServerPage를 분석하는 부분
+            Log.d("배열전",pRecvServerPage);
+            String[] jsonName = {"food_barcode","food_name","food_na","food_fat","food_chol","food_protein","food_image","food_calbo","food_energy","category_middlenum"};
+            mid_array = new String[jArr.length()][jsonName.length];
+            for (int i = 0; i < jArr.length(); i++) {
+                json = jArr.getJSONObject(i);
+
+                for(int j = 0; j < jsonName.length; j++) {
+                    mid_array[i][j] = json.getString(jsonName[j]);
+                }
+            }
+
+
+
+            Log.d("중분류값?", String.valueOf(mid_array[0][0]) + String.valueOf(mid_array[1][0]));
+            // arrayList1.add("가나다");
+            return mid_array;
+
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+
+            return null;
+
+        }
+
+    }
+
+
 
     public void printChecked(View v){
         CheckBox ch1 =(CheckBox)findViewById(R.id.checkBox1);

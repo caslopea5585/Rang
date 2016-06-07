@@ -79,11 +79,19 @@ public class MainActivity extends AppCompatActivity  {
     ImageButton left_product,center_product,right_product;
     String user_mail, search_text_array;
     ArrayList<String>arrayList1;
+    Button search_text;
+    String text_search_value;
+    String search_text_boolean;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
 
 
         user_id = (TextView)findViewById(R.id.user_id);
@@ -129,7 +137,7 @@ public class MainActivity extends AppCompatActivity  {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, arrayList1);
         AutoCompleteTextView textView = (AutoCompleteTextView) findViewById
-                (R.id.edit_message);
+                (R.id.search_text_value);
         textView.setAdapter(adapter);
 
 
@@ -149,7 +157,8 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
                 Intent barcode_activity = new Intent(MainActivity.this, BarcodeActivity.class);
-                startActivity(barcode_activity);
+                barcode_activity.putExtra("mem_email",from_login_email);
+                startActivityForResult(barcode_activity, 0);
 
 
             }
@@ -176,21 +185,48 @@ public class MainActivity extends AppCompatActivity  {
         });
 
         ImageButton detail_search = (ImageButton)findViewById(R.id.detail_search);
-        detail_search.setOnClickListener(new Button.OnClickListener(){
+        detail_search.setOnClickListener(new Button.OnClickListener() {
             @Override
-            public void onClick(View view){
-                Intent Detail_search2 = new Intent(MainActivity.this,Detail_Search.class);
-                Log.d("대분류 값 제대로?",  category_big);
+            public void onClick(View view) {
+                Intent Detail_search2 = new Intent(MainActivity.this, Detail_Search.class);
+                Log.d("대분류 값 제대로?", category_big);
                 Detail_search2.putExtra("category_big", category_big);
                 Log.d("중뷴류값은?", category_middle);
                 Detail_search2.putExtra("category_middle", category_middle);
                 Log.d("소분류값은?", category_small);
-                Detail_search2.putExtra("category_small",category_small);
+                Detail_search2.putExtra("category_small", category_small);
+                Detail_search2.putExtra("mem_email",from_login_email);
                 startActivityForResult(Detail_search2, 0);
 
             }
         });
+
+
+        text_search_value= textView.getText().toString();
+        search_text = (Button)findViewById(R.id.text_search);
+        search_text.setOnClickListener(new Button.OnClickListener(){
+            @Override
+        public void onClick(View view){
+                Intent search_text_intent = new Intent(MainActivity.this, BarcodeActivity.class);
+                search_text_boolean = "1";
+                search_text_intent.putExtra("search_text",text_search_value);
+                search_text_intent.putExtra("mem_email", from_login_email);
+                search_text_intent.putExtra("boolean", search_text_boolean);
+                startActivityForResult(search_text_intent, 0);
+            }
+
+        });
+
+
+
+
+
+
+
+
     }
+
+
     public void category_small() {
         class SendPostReqAsyncTask extends AsyncTask<Void, Void, String> {
             @Override
@@ -199,7 +235,7 @@ public class MainActivity extends AppCompatActivity  {
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 
 
-                String url = "http://14.63.213.212:55/food/smalllist";
+                String url = "http://14.63.213.212:55/food/goods";
                 String result ="";
                 BufferedReader inStream = null;
 
@@ -419,7 +455,7 @@ public class MainActivity extends AppCompatActivity  {
 
     public void sendMessage(View view) {
         Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText editText = (EditText) findViewById(R.id.edit_message);
+        EditText editText = (EditText) findViewById(R.id.search_text_value);
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
@@ -622,16 +658,16 @@ public class MainActivity extends AppCompatActivity  {
         if(count!=1) {
             mAdapter.addItem(getResources().getDrawable(R.drawable.history_button),
                     "검색기록보기",
-                    "2014-02-18");
+                    "2016-06-07");
             mAdapter.addItem(getResources().getDrawable(R.drawable.search_barcode),
                     "바코드검색",
-                    "2014-02-01");
+                    "2016-06-07");
             mAdapter.addItem(getResources().getDrawable(R.drawable.product_compare),
                     "상품비교하기",
-                    "2014-02-04");
+                    "2016-06-07");
             mAdapter.addItem(getResources().getDrawable(R.drawable.user_info),
                     "개인정보",
-                    "2014-02-04");
+                    "2016-06-07");
             count++;
         }
 

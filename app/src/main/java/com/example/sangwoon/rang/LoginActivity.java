@@ -259,7 +259,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(String result) {
-                Log.d("전달값", result);
+                Log.d("로그인에서생성", result);
+
                 search_list_value = result;
                 parsedData = jsonParserList(result);
                 super.onPostExecute(result);
